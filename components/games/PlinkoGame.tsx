@@ -182,7 +182,7 @@ export function PlinkoGame() {
   return (
     <div className="flex flex-col lg:flex-row gap-0 w-full max-w-[1100px] mx-auto min-h-[600px]">
       {/* ── LEFT: Sidebar Nav ── */}
-      <div className="hidden lg:flex w-48 shrink-0 border border-white/5 bg-black flex-col p-4 space-y-1">
+      <div className="hidden lg:flex w-48 shrink-0 border border-white/[0.12] bg-black flex-col p-4 space-y-1">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-5 h-5 bg-neon-green flex items-center justify-center">
             <span className="text-black text-[10px] font-bold">⚡</span>
@@ -205,7 +205,7 @@ export function PlinkoGame() {
               "flex items-center gap-3 px-3 py-2 text-xs font-mono transition-all w-full text-left",
               item.active
                 ? "bg-neon-green/10 text-neon-green"
-                : "text-gray-500 hover:text-white hover:bg-white/5"
+                : "text-gray-400 hover:text-white hover:bg-white/[0.06]"
             )}
           >
             <item.icon className="w-4 h-4" />
@@ -213,7 +213,7 @@ export function PlinkoGame() {
           </button>
         ))}
 
-        <div className="text-[10px] font-mono text-gray-700 uppercase tracking-wider px-3 mt-6 mb-2">
+        <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider px-3 mt-6 mb-2">
           System
         </div>
         {[
@@ -222,7 +222,7 @@ export function PlinkoGame() {
         ].map((item) => (
           <button
             key={item.label}
-            className="flex items-center gap-3 px-3 py-2 text-xs font-mono text-gray-500 hover:text-white hover:bg-white/5 transition-all w-full text-left"
+            className="flex items-center gap-3 px-3 py-2 text-xs font-mono text-gray-400 hover:text-white hover:bg-white/[0.06] transition-all w-full text-left"
           >
             <item.icon className="w-4 h-4" />
             {item.label}
@@ -232,14 +232,14 @@ export function PlinkoGame() {
         <div className="flex-1" />
 
         {/* Yield generated */}
-        <div className="border border-white/5 p-3 mt-auto">
-          <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Yield Generated</div>
+        <div className="border border-white/[0.12] p-3 mt-auto">
+          <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Yield Generated</div>
           <div className="text-sm font-mono font-bold text-white">2.458 ETH</div>
         </div>
       </div>
 
       {/* ── CENTER LEFT: Terminal Config ── */}
-      <div className="w-full lg:w-72 shrink-0 border border-white/5 lg:border-l-0 bg-black p-5 space-y-5">
+      <div className="w-full lg:w-72 shrink-0 border border-white/[0.12] lg:border-l-0 bg-black p-5 space-y-5">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-lg">⚙</span>
           <h2 className="text-sm font-mono font-bold text-white">Terminal Config</h2>
@@ -247,8 +247,8 @@ export function PlinkoGame() {
 
         {/* Risk Matrix */}
         <div className="space-y-2">
-          <div className="text-[10px] font-mono text-gray-500 uppercase">Risk Matrix</div>
-          <div className="grid grid-cols-3 gap-0 border border-white/10">
+          <div className="text-[10px] font-mono text-gray-400 uppercase">Risk Matrix</div>
+          <div className="grid grid-cols-3 gap-0 border border-white/[0.14]">
             {(["LOW", "MEDIUM", "HIGH"] as const).map((r) => (
               <button
                 key={r}
@@ -257,7 +257,7 @@ export function PlinkoGame() {
                   "text-[10px] font-mono py-2.5 uppercase transition-all",
                   risk === r
                     ? "bg-neon-green text-black font-bold"
-                    : "bg-transparent text-gray-500 hover:bg-white/5"
+                    : "bg-transparent text-gray-400 hover:bg-white/[0.06]"
                 )}
               >
                 {r}
@@ -268,12 +268,12 @@ export function PlinkoGame() {
 
         {/* Density (Rows) */}
         <div className="space-y-2">
-          <div className="text-[10px] font-mono text-gray-500 uppercase">Density (Rows)</div>
+          <div className="text-[10px] font-mono text-gray-400 uppercase">Density (Rows)</div>
           <div className="relative">
             <select
               value={rows}
               onChange={(e) => setRows(parseInt(e.target.value))}
-              className="w-full bg-white/[0.02] border border-white/10 text-sm font-mono text-white px-3 py-2.5 outline-none appearance-none cursor-pointer"
+              className="w-full bg-white/[0.04] border border-white/[0.14] text-sm font-mono text-white px-3 py-2.5 outline-none appearance-none cursor-pointer"
             >
               {[8, 10, 12, 14, 16].map((r) => (
                 <option key={r} value={r} className="bg-black">
@@ -287,8 +287,8 @@ export function PlinkoGame() {
 
         {/* Payload */}
         <div className="space-y-2">
-          <div className="text-[10px] font-mono text-gray-500 uppercase">Payload (ETH)</div>
-          <div className="flex items-center border border-white/10 bg-white/[0.02]">
+          <div className="text-[10px] font-mono text-gray-400 uppercase">Payload (ETH)</div>
+          <div className="flex items-center border border-white/[0.14] bg-white/[0.04]">
             <input
               type="number"
               value={betAmount}
@@ -298,13 +298,13 @@ export function PlinkoGame() {
             <div className="flex gap-1 px-2">
               <button
                 onClick={() => setBetAmount((parseFloat(betAmount || "0") / 2).toFixed(4))}
-                className="text-[10px] font-mono text-gray-500 border border-white/10 px-2 py-0.5 hover:bg-white/5"
+                className="text-[10px] font-mono text-gray-400 border border-white/[0.14] px-2 py-0.5 hover:bg-white/[0.06]"
               >
                 1/2
               </button>
               <button
                 onClick={() => setBetAmount((parseFloat(betAmount || "0") * 2).toFixed(4))}
-                className="text-[10px] font-mono text-gray-500 border border-white/10 px-2 py-0.5 hover:bg-white/5"
+                className="text-[10px] font-mono text-gray-400 border border-white/[0.14] px-2 py-0.5 hover:bg-white/[0.06]"
               >
                 x2
               </button>
@@ -321,13 +321,13 @@ export function PlinkoGame() {
         </button>
 
         {/* Protocol Info */}
-        <div className="border border-white/5 p-3 flex gap-6">
+        <div className="border border-white/[0.12] p-3 flex gap-6">
           <div>
-            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Protocol Fee</div>
+            <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Protocol Fee</div>
             <div className="text-sm font-mono font-bold text-white">0.5%</div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Hash Integrity</div>
+            <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Hash Integrity</div>
             <div className="flex items-center gap-1.5">
               <span className="status-dot online" />
               <span className="text-xs font-mono text-neon-green uppercase">Secure</span>
@@ -337,7 +337,7 @@ export function PlinkoGame() {
       </div>
 
       {/* ── CENTER RIGHT: Canvas + Multipliers ── */}
-      <div className="flex-1 border border-white/5 lg:border-l-0 bg-black/50 flex flex-col">
+      <div className="flex-1 border border-white/[0.12] lg:border-l-0 bg-black/50 flex flex-col">
         {/* Canvas */}
         <div className="flex-1 flex items-center justify-center p-4 relative">
           <canvas
@@ -357,7 +357,7 @@ export function PlinkoGame() {
                 "flex-1 text-center py-2.5 border font-mono text-xs transition-all",
                 lastBucket === i
                   ? "border-neon-green bg-neon-green/10 text-neon-green font-bold"
-                  : "border-white/5 text-gray-600"
+                  : "border-white/[0.12] text-gray-500"
               )}
             >
               {m}
@@ -366,9 +366,9 @@ export function PlinkoGame() {
         </div>
 
         {/* Global Stream */}
-        <div className="border-t border-white/5 p-4">
+        <div className="border-t border-white/[0.1] p-4">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-mono text-gray-500 uppercase">
+            <span className="text-[10px] font-mono text-gray-400 uppercase">
               Global Stream // Active Drops
             </span>
             <div className="flex gap-1">
@@ -384,7 +384,7 @@ export function PlinkoGame() {
                   "flex items-center gap-3 px-4 py-2 border shrink-0 min-w-[150px]",
                   drop.active
                     ? "border-neon-green bg-neon-green/5"
-                    : "border-white/5"
+                    : "border-white/[0.12]"
                 )}
               >
                 <Monitor className="w-3 h-3 text-gray-600" />

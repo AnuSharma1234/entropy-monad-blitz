@@ -76,16 +76,16 @@ export function MinesGame() {
   return (
     <div className="flex flex-col lg:flex-row gap-0 w-full max-w-[1100px] mx-auto min-h-[600px]">
       {/* ── LEFT PANEL: Controls ── */}
-      <div className="w-full lg:w-64 shrink-0 border border-white/5 bg-black p-5 space-y-5">
+      <div className="w-full lg:w-64 shrink-0 border border-white/[0.12] bg-black p-5 space-y-5">
         <div>
           <h2 className="text-sm font-mono font-bold text-white uppercase mb-0.5">Manual_Control</h2>
-          <div className="text-[9px] font-mono text-gray-700 uppercase">AUTH_STATUS:LEVEL_C4</div>
+          <div className="text-[9px] font-mono text-gray-500 uppercase">AUTH_STATUS:LEVEL_C4</div>
         </div>
 
         {/* Bet Amount */}
         <div className="space-y-2">
-          <div className="text-[10px] font-mono text-gray-500 uppercase">Bet_Amount</div>
-          <div className="flex items-center border border-white/10 bg-white/[0.02]">
+          <div className="text-[10px] font-mono text-gray-400 uppercase">Bet_Amount</div>
+          <div className="flex items-center border border-white/[0.18] bg-white/[0.04]">
             <input
               type="number"
               value={betAmount}
@@ -93,7 +93,7 @@ export function MinesGame() {
               disabled={gameState === "PLAYING"}
               className="flex-1 bg-transparent text-sm font-mono text-white px-3 py-2.5 outline-none w-full"
             />
-            <span className="text-[10px] font-mono text-gray-600 px-3">ETH</span>
+            <span className="text-[10px] font-mono text-gray-500 px-3">ETH</span>
           </div>
           <div className="grid grid-cols-3 gap-1.5">
             {["1/2", "2X", "MAX"].map((label) => (
@@ -106,7 +106,7 @@ export function MinesGame() {
                   if (label === "2X") setBetAmount((val * 2).toFixed(4));
                   if (label === "MAX") setBetAmount(balance ? Number(balance.formatted).toFixed(4) : "0");
                 }}
-                className="border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] text-[10px] font-mono text-gray-400 py-1.5 transition-colors"
+                className="border border-white/[0.14] bg-white/[0.04] hover:bg-white/[0.08] text-[10px] font-mono text-gray-400 py-1.5 transition-colors"
               >
                 {label}
               </button>
@@ -116,7 +116,7 @@ export function MinesGame() {
 
         {/* Mine Density */}
         <div className="space-y-2">
-          <div className="text-[10px] font-mono text-gray-500 uppercase">Mine_Density</div>
+          <div className="text-[10px] font-mono text-gray-400 uppercase">Mine_Density</div>
           <div className="grid grid-cols-4 gap-1.5">
             {[1, 3, 5, 24].map((count) => (
               <button
@@ -127,7 +127,7 @@ export function MinesGame() {
                   "border text-xs font-mono py-2 transition-all",
                   mineCount === count
                     ? "border-neon-green bg-neon-green/10 text-neon-green"
-                    : "border-white/10 bg-white/[0.02] text-gray-500 hover:bg-white/[0.05]"
+                    : "border-white/[0.14] bg-white/[0.04] text-gray-400 hover:bg-white/[0.08]"
                 )}
               >
                 {count}
@@ -165,14 +165,14 @@ export function MinesGame() {
         </div>
 
         {/* Mode Toggle */}
-        <div className="border-t border-white/5 pt-4 space-y-2">
+        <div className="border-t border-white/[0.1] pt-4 space-y-2">
           <button
             onClick={() => setMode("manual")}
             className={cn(
               "w-full flex items-center gap-3 px-3 py-2.5 text-xs font-mono uppercase transition-all border",
               mode === "manual"
                 ? "border-neon-green bg-neon-green/10 text-neon-green"
-                : "border-transparent text-gray-600 hover:text-gray-400"
+                : "border-transparent text-gray-500 hover:text-gray-300"
             )}
           >
             <span className="text-base">⊞</span> Manual_Mode
@@ -181,7 +181,7 @@ export function MinesGame() {
             onClick={() => setMode("auto")}
             className={cn(
               "w-full flex items-center gap-3 px-3 py-2 text-xs font-mono uppercase transition-all",
-              mode === "auto" ? "text-neon-green" : "text-gray-600 hover:text-gray-400"
+              mode === "auto" ? "text-neon-green" : "text-gray-500 hover:text-gray-300"
             )}
           >
             <span className="text-base">✧</span> Auto_Pilot
@@ -190,17 +190,17 @@ export function MinesGame() {
       </div>
 
       {/* ── CENTER: Game Grid ── */}
-      <div className="flex-1 border border-white/5 border-l-0 bg-black/50 p-5 flex flex-col">
+      <div className="flex-1 border border-white/[0.12] border-l-0 bg-black/50 p-5 flex flex-col">
         {/* Multiplier Display */}
         <div className="flex items-center justify-between mb-5">
           <div>
-            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Network_Multiplier</div>
+            <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Network_Multiplier</div>
             <span className="text-4xl font-black font-mono text-neon-green text-glow">
               {currentMultiplier.toFixed(2)}x
             </span>
           </div>
           <div className="text-right">
-            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Next_Step</div>
+            <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Next_Step</div>
             <span className="text-lg font-bold font-mono text-gray-400">
               {nextMultiplier.toFixed(2)}x
             </span>
@@ -209,7 +209,7 @@ export function MinesGame() {
 
         <div className="flex items-center gap-2 mb-4">
           <span className="status-dot online" />
-          <span className="text-[10px] font-mono text-gray-600 uppercase">
+          <span className="text-[10px] font-mono text-gray-500 uppercase">
             Status: {gameState === "PLAYING" ? "OPERATIONAL // ON-CHAIN" : gameState === "BUSTED" ? "TERMINATED" : "STANDBY"}
           </span>
         </div>
@@ -231,11 +231,11 @@ export function MinesGame() {
                 className={cn(
                   "mine-tile aspect-square flex items-center justify-center border transition-all relative",
                   !isRevealed
-                    ? "bg-white/[0.03] border-white/10 hover:border-neon-green/30 cursor-pointer"
+                    ? "bg-white/[0.07] border-white/[0.18] hover:border-neon-green/40 cursor-pointer"
                     : isMine
                     ? isExploded
                       ? "bg-error/20 border-error/50"
-                      : "bg-white/[0.02] border-white/5 opacity-40"
+                      : "bg-white/[0.02] border-white/[0.08] opacity-40"
                     : "bg-neon-green/10 border-neon-green/30"
                 )}
               >
@@ -260,14 +260,14 @@ export function MinesGame() {
         </div>
 
         {/* Kernel Info */}
-        <div className="mt-auto text-[10px] font-mono text-gray-700 space-y-0.5">
+        <div className="mt-auto text-[10px] font-mono text-gray-500 space-y-0.5">
           <div>KERNEL_CODE: RUNNING</div>
           <div>HASH_RATE: 44.1T4/S</div>
           <div>BLOCK_HEIGHT: 19521</div>
         </div>
 
         {/* Bottom stats */}
-        <div className="flex justify-end gap-6 mt-3 text-[10px] font-mono text-gray-700">
+        <div className="flex justify-end gap-6 mt-3 text-[10px] font-mono text-gray-500">
           <span>GAS_PRICE: 18 GWEI</span>
           <span>LATENCY: 12MS</span>
           <span>VRF: NODE_EAST_01</span>
@@ -299,16 +299,16 @@ export function MinesGame() {
       </div>
 
       {/* ── RIGHT PANEL: Activity ── */}
-      <div className="w-full lg:w-56 shrink-0 border border-white/5 border-l-0 bg-black p-5 space-y-5 hidden lg:block">
+      <div className="w-full lg:w-56 shrink-0 border border-white/[0.12] border-l-0 bg-black p-5 space-y-5 hidden lg:block">
         <div className="flex items-center gap-2 mb-4">
           <span className="status-dot online" />
-          <span className="text-[10px] font-mono text-gray-500 uppercase">Global_Activity</span>
+          <span className="text-[10px] font-mono text-gray-400 uppercase">Global_Activity</span>
         </div>
 
         <div className="space-y-3">
           {MOCK_ACTIVITY.map((item, i) => (
             <div key={i} className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-gray-600">{item.user}</span>
+              <span className="text-[11px] font-mono text-gray-500">{item.user}</span>
               <span className={cn("text-xs font-mono font-bold", item.color)}>{item.mult}</span>
             </div>
           ))}
@@ -317,13 +317,13 @@ export function MinesGame() {
         <div className="flex-1" />
 
         {/* Pool Utilization */}
-        <div className="border border-white/5 p-3 mt-8">
-          <div className="text-[10px] font-mono text-gray-600 uppercase mb-2">Pool_Utilization</div>
+        <div className="border border-white/[0.12] p-3 mt-8">
+          <div className="text-[10px] font-mono text-gray-500 uppercase mb-2">Pool_Utilization</div>
           <div className="progress-bar mb-2">
             <div className="progress-bar-fill" style={{ width: "88%" }} />
           </div>
           <div className="flex justify-between text-[10px] font-mono">
-            <span className="text-gray-600 uppercase">Optimized</span>
+            <span className="text-gray-500 uppercase">Optimized</span>
             <span className="text-white">88%</span>
           </div>
         </div>

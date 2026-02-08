@@ -27,10 +27,10 @@ export default function SettingsPage() {
 
       <div className="flex flex-1">
         {/* LEFT SIDEBAR */}
-        <aside className="w-56 border-r border-white/5 p-5 hidden md:flex flex-col gap-6">
+        <aside className="w-56 border-r border-white/[0.1] p-5 hidden md:flex flex-col gap-6">
           <div className="space-y-2">
             <div className="text-xs font-mono text-neon-green uppercase tracking-wider">NODE_01</div>
-            <div className="text-[10px] font-mono text-gray-700">OPERATOR // VERIFIED</div>
+            <div className="text-[10px] font-mono text-gray-500">OPERATOR // VERIFIED</div>
           </div>
 
           <nav className="flex-1 space-y-1">
@@ -40,7 +40,7 @@ export default function SettingsPage() {
                 className={`w-full flex items-center gap-3 px-3 py-2.5 text-xs font-mono uppercase transition-colors ${
                   item.active
                     ? "text-neon-green bg-neon-green/5 border-l-2 border-neon-green"
-                    : "text-gray-600 hover:text-gray-400 border-l-2 border-transparent"
+                    : "text-gray-500 hover:text-gray-300 border-l-2 border-transparent"
                 }`}
               >
                 <item.icon className="w-3.5 h-3.5" />
@@ -50,9 +50,9 @@ export default function SettingsPage() {
           </nav>
 
           <div className="space-y-2">
-            <div className="text-[10px] font-mono text-gray-700 uppercase">Session_Uptime</div>
-            <div className="text-xs font-mono text-gray-500">04:32:11</div>
-            <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+            <div className="text-[10px] font-mono text-gray-500 uppercase">Session_Uptime</div>
+            <div className="text-xs font-mono text-gray-400">04:32:11</div>
+            <div className="w-full h-1 bg-white/[0.08] rounded-full overflow-hidden">
               <div className="h-full bg-neon-green/40 rounded-full" style={{ width: "72%" }} />
             </div>
           </div>
@@ -61,7 +61,7 @@ export default function SettingsPage() {
         {/* MAIN */}
         <main className="flex-1 p-6 max-w-3xl space-y-8 page-enter">
           <div>
-            <div className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-2">
+            <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-2">
               CONFIG / TECHNICAL / V1.2.0
             </div>
             <h1 className="text-2xl font-black font-mono text-white tracking-tight italic">
@@ -76,12 +76,12 @@ export default function SettingsPage() {
               <span>[ Execution_Preferences ]</span>
             </div>
 
-            <div className="border border-white/5 bg-white/[0.02] divide-y divide-white/5">
+            <div className="border border-white/[0.12] bg-white/[0.04] divide-y divide-white/[0.08]">
               {/* Hardware Acceleration */}
               <div className="flex items-center justify-between p-4">
                 <div>
                   <div className="text-sm font-mono text-white uppercase font-bold">Hardware Acceleration</div>
-                  <div className="text-[10px] font-mono text-gray-600 mt-1">
+                  <div className="text-[10px] font-mono text-gray-500 mt-1">
                     Enable GPU-assisted rendering for game interfaces and chart elements
                   </div>
                 </div>
@@ -99,7 +99,7 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between p-4">
                 <div>
                   <div className="text-sm font-mono text-white uppercase font-bold">Auto-Gas Management</div>
-                  <div className="text-[10px] font-mono text-gray-600 mt-1">
+                  <div className="text-[10px] font-mono text-gray-500 mt-1">
                     Automatically estimate and set optimal gas parameters for transactions
                   </div>
                 </div>
@@ -122,7 +122,7 @@ export default function SettingsPage() {
               <span>[ Protocol_Security ]</span>
             </div>
 
-            <div className="border border-white/5 bg-white/[0.02] divide-y divide-white/5">
+            <div className="border border-white/[0.12] bg-white/[0.04] divide-y divide-white/[0.08]">
               {/* Principal Betting */}
               <div className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
@@ -150,7 +150,7 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between p-4">
                 <div>
                   <div className="text-sm font-mono text-white uppercase font-bold">Persistent Session Keys</div>
-                  <div className="text-[10px] font-mono text-gray-600 mt-1">
+                  <div className="text-[10px] font-mono text-gray-500 mt-1">
                     Maintain session keys across browser restarts for seamless re-authentication
                   </div>
                 </div>
@@ -173,8 +173,8 @@ export default function SettingsPage() {
               <span>[ Terminal_Debug_Mode ]</span>
             </div>
 
-            <div className="border border-white/5 bg-white/[0.02] p-5 space-y-4">
-              <p className="text-xs font-mono text-gray-500 leading-relaxed">
+            <div className="border border-white/[0.12] bg-white/[0.04] p-5 space-y-4">
+              <p className="text-xs font-mono text-gray-400 leading-relaxed">
                 Advanced diagnostics console for monitoring real-time protocol state, 
                 transaction queues, and kernel sync status. Authorized operators only.
               </p>
@@ -186,7 +186,7 @@ export default function SettingsPage() {
 
           {/* Disconnect */}
           {isConnected && (
-            <section className="border-t border-white/5 pt-6">
+            <section className="border-t border-white/[0.1] pt-6">
               <button
                 onClick={actions.disconnect}
                 className="border border-red-500/30 bg-red-500/5 text-red-400 text-xs font-mono uppercase px-5 py-2.5 hover:bg-red-500/10 transition-colors"
@@ -199,12 +199,12 @@ export default function SettingsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 px-4 py-3 flex justify-between items-center">
-        <div className="flex gap-6 text-[10px] font-mono text-gray-700">
+      <footer className="border-t border-white/[0.1] px-4 py-3 flex justify-between items-center">
+        <div className="flex gap-6 text-[10px] font-mono text-gray-500">
           <span>KERNEL: STABLE</span>
           <span>ENV: TESTNET</span>
         </div>
-        <div className="text-[10px] font-mono text-gray-700">
+        <div className="text-[10px] font-mono text-gray-500">
           ENTROPY_SYS v1.2.0 © 2024
         </div>
       </footer>

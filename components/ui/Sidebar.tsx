@@ -46,26 +46,26 @@ export function Sidebar({ className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "w-52 min-h-screen border-r border-white/5 bg-black flex flex-col py-4 px-3 shrink-0",
+        "w-52 min-h-screen border-r border-white/[0.1] bg-black flex flex-col py-4 px-3 shrink-0",
         className
       )}
     >
       {/* User Profile */}
       <div className="mb-6 px-2">
         <div className="flex items-center gap-3 mb-1">
-          <div className="w-8 h-8 border border-white/10 bg-white/5 flex items-center justify-center">
+          <div className="w-8 h-8 border border-white/[0.14] bg-white/[0.06] flex items-center justify-center">
             <User className="w-4 h-4 text-gray-500" />
           </div>
           <div>
             <div className="text-xs font-mono font-bold text-white">OPERATOR_01</div>
-            <div className="text-[10px] font-mono text-gray-600">LVL_09</div>
+            <div className="text-[10px] font-mono text-gray-500">LVL_09</div>
           </div>
         </div>
       </div>
 
       {/* Core Modules */}
       <div className="mb-6">
-        <div className="text-[10px] font-mono text-gray-600 uppercase tracking-wider px-2 mb-2">
+        <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider px-2 mb-2">
           Core_Modules
         </div>
         <nav className="space-y-0.5">
@@ -79,10 +79,10 @@ export function Sidebar({ className }: SidebarProps) {
                   "flex items-center gap-3 px-3 py-2 text-xs font-mono transition-all group",
                   isActive
                     ? "bg-neon-green/10 text-neon-green border-l-2 border-neon-green"
-                    : "text-gray-500 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+                    : "text-gray-400 hover:text-white hover:bg-white/[0.06] border-l-2 border-transparent"
                 )}
               >
-                <item.icon className={cn("w-4 h-4", isActive ? "text-neon-green" : "text-gray-600 group-hover:text-white")} />
+                <item.icon className={cn("w-4 h-4", isActive ? "text-neon-green" : "text-gray-500 group-hover:text-white")} />
                 <span className="uppercase">{item.name}</span>
               </Link>
             );
@@ -92,7 +92,7 @@ export function Sidebar({ className }: SidebarProps) {
 
       {/* System */}
       <div className="mb-6">
-        <div className="text-[10px] font-mono text-gray-600 uppercase tracking-wider px-2 mb-2">
+        <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider px-2 mb-2">
           System
         </div>
         <nav className="space-y-0.5">
@@ -106,10 +106,10 @@ export function Sidebar({ className }: SidebarProps) {
                   "flex items-center gap-3 px-3 py-2 text-xs font-mono transition-all group",
                   isActive
                     ? "bg-neon-green/10 text-neon-green border-l-2 border-neon-green"
-                    : "text-gray-500 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+                    : "text-gray-400 hover:text-white hover:bg-white/[0.06] border-l-2 border-transparent"
                 )}
               >
-                <item.icon className={cn("w-4 h-4", isActive ? "text-neon-green" : "text-gray-600 group-hover:text-white")} />
+                <item.icon className={cn("w-4 h-4", isActive ? "text-neon-green" : "text-gray-500 group-hover:text-white")} />
                 <span className="uppercase">{item.name}</span>
               </Link>
             );
@@ -121,8 +121,8 @@ export function Sidebar({ className }: SidebarProps) {
       <div className="flex-1" />
 
       {/* System Load */}
-      <div className="px-2 py-3 border border-white/5 bg-white/[0.02]">
-        <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">System_Load</div>
+      <div className="px-2 py-3 border border-white/[0.1] bg-white/[0.03]">
+        <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">System_Load</div>
         <div className="progress-bar mb-1">
           <div className="progress-bar-fill" style={{ width: "62%" }} />
         </div>

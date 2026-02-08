@@ -37,7 +37,7 @@ export default function StakePage() {
       <Header />
       <div className="flex flex-1">
         {/* Left Sidebar */}
-        <aside className="hidden lg:flex w-48 shrink-0 border-r border-white/5 bg-black flex-col p-4 space-y-1">
+        <aside className="hidden lg:flex w-48 shrink-0 border-r border-white/[0.1] bg-black flex-col p-4 space-y-1">
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-1">
               <div className="w-5 h-5 bg-neon-green flex items-center justify-center">
@@ -63,7 +63,7 @@ export default function StakePage() {
                 "flex items-center gap-3 px-3 py-2 text-xs font-mono transition-all w-full text-left border-l-2",
                 item.active || (item.label === "Stake" && stakeMode === "stake") || (item.label === "Withdraw" && stakeMode === "withdraw")
                   ? "bg-neon-green/10 text-neon-green border-neon-green"
-                  : "text-gray-500 hover:text-white hover:bg-white/5 border-transparent"
+                  : "text-gray-400 hover:text-white hover:bg-white/[0.06] border-transparent"
               )}
             >
               <span className="uppercase">{item.label}</span>
@@ -73,8 +73,8 @@ export default function StakePage() {
           <div className="flex-1" />
 
           {/* Protocol Status */}
-          <div className="border border-white/5 p-3">
-            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Protocol Status</div>
+          <div className="border border-white/[0.12] p-3">
+            <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Protocol Status</div>
             <div className="flex items-center gap-1.5">
               <span className="status-dot online" />
               <span className="text-[10px] font-mono text-neon-green uppercase">Mainnet V2.1.0 Online</span>
@@ -94,7 +94,7 @@ export default function StakePage() {
               </p>
             </div>
             <div className="text-right">
-              <div className="text-[10px] font-mono text-gray-600 uppercase mb-0.5">Total Value Locked</div>
+              <div className="text-[10px] font-mono text-gray-500 uppercase mb-0.5">Total Value Locked</div>
               <div className="text-xl font-bold font-mono text-white">$42,901,054.21</div>
             </div>
           </div>
@@ -102,10 +102,10 @@ export default function StakePage() {
           {/* Stake & Unstake panels */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* STAKE panel */}
-            <div className="border border-white/5 bg-white/[0.02] p-6 space-y-5">
+            <div className="border border-white/[0.12] bg-white/[0.04] p-6 space-y-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Panel_ID: STAKE_01</div>
+                  <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Panel_ID: STAKE_01</div>
                   <h2 className="text-lg font-mono font-bold text-white uppercase">Stake Assets</h2>
                 </div>
                 <span className="border border-neon-green/30 bg-neon-green/10 text-neon-green text-[10px] font-mono px-2 py-0.5 uppercase">
@@ -114,14 +114,14 @@ export default function StakePage() {
               </div>
 
               {/* Stake/Withdraw toggle */}
-              <div className="grid grid-cols-2 gap-0 border border-white/10">
+              <div className="grid grid-cols-2 gap-0 border border-white/[0.14]">
                 <button
                   onClick={() => setStakeMode("stake")}
                   className={cn(
                     "text-xs font-mono py-2.5 uppercase transition-all",
                     stakeMode === "stake"
                       ? "bg-white text-black font-bold"
-                      : "text-gray-500 hover:bg-white/5"
+                      : "text-gray-400 hover:bg-white/[0.06]"
                   )}
                 >
                   Stake
@@ -132,7 +132,7 @@ export default function StakePage() {
                     "text-xs font-mono py-2.5 uppercase transition-all",
                     stakeMode === "withdraw"
                       ? "bg-white text-black font-bold"
-                      : "text-gray-500 hover:bg-white/5"
+                      : "text-gray-400 hover:bg-white/[0.06]"
                   )}
                 >
                   Withdraw
@@ -141,19 +141,19 @@ export default function StakePage() {
 
               {/* Amount to Stake */}
               <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-mono text-gray-500 uppercase">
+                <div className="flex justify-between text-[10px] font-mono text-gray-400 uppercase">
                   <span>Amount to Stake</span>
                   <span>Bal: 12.45 ETH</span>
                 </div>
-                <div className="flex items-center border border-white/10 bg-white/[0.02]">
+                <div className="flex items-center border border-white/[0.14] bg-white/[0.04]">
                   <input
                     type="number"
                     value={stakeAmount}
                     onChange={(e) => setStakeAmount(e.target.value)}
                     className="flex-1 bg-transparent text-xl font-mono font-bold text-white px-3 py-3 outline-none"
                   />
-                  <span className="text-xs font-mono text-gray-500 px-2">ETH</span>
-                  <button className="text-[10px] font-mono text-neon-green border-l border-white/10 px-3 py-3 hover:bg-white/5 uppercase">
+                  <span className="text-xs font-mono text-gray-400 px-2">ETH</span>
+                  <button className="text-[10px] font-mono text-neon-green border-l border-white/[0.14] px-3 py-3 hover:bg-white/[0.06] uppercase">
                     MAX
                   </button>
                 </div>
@@ -182,26 +182,26 @@ export default function StakePage() {
             </div>
 
             {/* UNSTAKE / CLAIM panel */}
-            <div className="border border-white/5 bg-white/[0.02] p-6 space-y-5">
+            <div className="border border-white/[0.12] bg-white/[0.04] p-6 space-y-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Panel_ID: STAKE_02</div>
+                  <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Panel_ID: STAKE_02</div>
                   <h2 className="text-lg font-mono font-bold text-white uppercase">Unstake / Claim</h2>
                 </div>
-                <span className="text-[10px] font-mono text-gray-600 uppercase">Staked: 4.20 ETH</span>
+                <span className="text-[10px] font-mono text-gray-500 uppercase">Staked: 4.20 ETH</span>
               </div>
 
               {/* Amount to withdraw */}
               <div className="space-y-2">
-                <div className="text-[10px] font-mono text-gray-500 uppercase">Amount to Withdraw</div>
-                <div className="flex items-center border border-white/10 bg-white/[0.02]">
+                <div className="text-[10px] font-mono text-gray-400 uppercase">Amount to Withdraw</div>
+                <div className="flex items-center border border-white/[0.14] bg-white/[0.04]">
                   <input
                     type="number"
                     value={withdrawAmount}
                     onChange={(e) => setWithdrawAmount(e.target.value)}
                     className="flex-1 bg-transparent text-xl font-mono font-bold text-white px-3 py-3 outline-none"
                   />
-                  <span className="text-xs font-mono text-gray-500 px-3">ETH</span>
+                  <span className="text-xs font-mono text-gray-400 px-3">ETH</span>
                 </div>
               </div>
 
@@ -233,11 +233,11 @@ export default function StakePage() {
           </div>
 
           {/* Active Node Positions */}
-          <div className="border border-white/5 bg-white/[0.02]">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+          <div className="border border-white/[0.12] bg-white/[0.04]">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.1]">
               <h2 className="text-sm font-mono font-bold text-white uppercase">Active Node Positions</h2>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-gray-600 uppercase">Sync Status: Optimal</span>
+                  <span className="text-[10px] font-mono text-gray-500 uppercase">Sync Status: Optimal</span>
                 <span className="status-dot online" />
               </div>
             </div>
@@ -245,7 +245,7 @@ export default function StakePage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="text-[10px] font-mono text-gray-600 uppercase border-b border-white/5">
+                  <tr className="text-[10px] font-mono text-gray-500 uppercase border-b border-white/[0.1]">
                     <th className="px-5 py-3">Asset Identifier</th>
                     <th className="px-5 py-3">Staked Balance</th>
                     <th className="px-5 py-3">Yield Accrued</th>
@@ -255,10 +255,10 @@ export default function StakePage() {
                 </thead>
                 <tbody>
                   {MOCK_POSITIONS.map((pos, i) => (
-                    <tr key={i} className="border-b border-white/5 last:border-b-0 hover:bg-white/[0.02] transition-colors">
+                    <tr key={i} className="border-b border-white/[0.08] last:border-b-0 hover:bg-white/[0.03] transition-colors">
                       <td className="px-5 py-4 flex items-center gap-2">
-                        <div className="w-6 h-6 border border-white/10 bg-white/5 flex items-center justify-center">
-                          <span className="text-[10px] font-mono text-gray-500">⊙</span>
+                        <div className="w-6 h-6 border border-white/[0.14] bg-white/[0.06] flex items-center justify-center">
+                          <span className="text-[10px] font-mono text-gray-400">⊙</span>
                         </div>
                         <span className="text-xs font-mono font-bold text-white">{pos.asset}</span>
                       </td>
@@ -291,13 +291,13 @@ export default function StakePage() {
       </div>
 
       {/* Bottom footer bar */}
-      <footer className="border-t border-white/5 px-4 py-2 flex justify-between items-center">
-        <span className="text-[10px] font-mono text-gray-700">
+      <footer className="border-t border-white/[0.1] px-4 py-2 flex justify-between items-center">
+        <span className="text-[10px] font-mono text-gray-500">
           © 2024 CYBERSTAKE LABS // CORE_OS
         </span>
         <div className="flex gap-6 text-[10px] font-mono">
           <span className="text-neon-green">GAS: 12 GWEI</span>
-          <span className="text-gray-700">BLOCK: 19482031</span>
+          <span className="text-gray-500">BLOCK: 19482031</span>
         </div>
       </footer>
     </div>

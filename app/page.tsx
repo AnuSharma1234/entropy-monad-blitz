@@ -22,7 +22,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-8 border border-white/5 px-4 py-1.5"
+            className="flex items-center gap-2 text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-8 border border-white/[0.1] px-4 py-1.5"
           >
             <span className="status-dot online" />
             PROTOCOL_STATUS: [ACTIVE_LINK]
@@ -53,9 +53,9 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border border-white/10 bg-white/[0.02] px-5 py-3 text-center min-w-[180px]"
+                className="border border-white/[0.14] bg-white/[0.04] px-5 py-3 text-center min-w-[180px]"
               >
-                <div className="text-[9px] font-mono text-gray-600 uppercase tracking-wider mb-1">
+                <div className="text-[9px] font-mono text-gray-500 uppercase tracking-wider mb-1">
                   {item.label}
                 </div>
                 <div className="text-xs font-mono font-bold text-white uppercase">
@@ -81,7 +81,7 @@ export default function Home() {
       </section>
 
       {/* ── CAPITAL SYNTHESIS FLOW ── */}
-      <section className="py-24 px-4 border-t border-white/5">
+      <section className="py-24 px-4 border-t border-white/[0.1]">
         <div className="container max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,7 +89,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-3">
+            <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-3">
               // OPERATIONS_SEQUENCE
             </div>
             <h2 className="text-3xl md:text-5xl font-black font-mono text-white tracking-tight">
@@ -124,7 +124,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="border border-white/5 p-6 relative group hover:border-neon-green/20 transition-all"
+                className="border border-white/[0.12] p-6 relative group hover:border-neon-green/25 transition-all"
               >
                 {/* Corner decoration */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-neon-green" />
@@ -134,8 +134,8 @@ export default function Home() {
                   {step.num}
                 </div>
                 <h3 className="text-xl font-mono font-bold text-white mb-1">{step.title}</h3>
-                <div className="text-[10px] font-mono text-gray-600 mb-3">{step.tag}</div>
-                <p className="text-xs font-mono text-gray-500 leading-relaxed">{step.desc}</p>
+                <div className="text-[10px] font-mono text-gray-500 mb-3">{step.tag}</div>
+                <p className="text-xs font-mono text-gray-400 leading-relaxed">{step.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -143,7 +143,7 @@ export default function Home() {
       </section>
 
       {/* ── SYSTEM INTEGRITY ── */}
-      <section className="py-24 px-4 border-t border-white/5 bg-white/[0.01]">
+      <section className="py-24 px-4 border-t border-white/[0.1] bg-white/[0.01]">
         <div className="container max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -152,14 +152,14 @@ export default function Home() {
             className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16"
           >
             <div>
-              <div className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-3">
+              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-3">
                 HARDENED_SPEC_V4.2
               </div>
               <h2 className="text-3xl md:text-5xl font-black font-mono text-white tracking-tight">
                 System Integrity
               </h2>
             </div>
-            <div className="text-[10px] font-mono text-gray-600 uppercase text-right mt-4 md:mt-0">
+            <div className="text-[10px] font-mono text-gray-500 uppercase text-right mt-4 md:mt-0">
               04_SYSTEM_OVERRIDE_ACTIVE<br />
               CORE_REVISION_0492
             </div>
@@ -198,12 +198,12 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="border border-white/5 p-5 hover:border-neon-green/20 transition-all group"
+                className="border border-white/[0.12] p-5 hover:border-neon-green/25 transition-all group"
               >
                 <mod.icon className="w-5 h-5 text-neon-green mb-4 group-hover:text-glow" />
-                <div className="text-[9px] font-mono text-gray-600 uppercase mb-1">{mod.module}</div>
+                <div className="text-[9px] font-mono text-gray-500 uppercase mb-1">{mod.module}</div>
                 <h3 className="text-sm font-mono font-bold text-white mb-2">{mod.title}</h3>
-                <p className="text-[11px] font-mono text-gray-600 leading-relaxed">{mod.desc}</p>
+                <p className="text-[11px] font-mono text-gray-500 leading-relaxed">{mod.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -211,7 +211,7 @@ export default function Home() {
       </section>
 
       {/* ── ACCESS TERMINAL CTA ── */}
-      <section className="py-32 px-4 border-t border-white/5 relative overflow-hidden">
+      <section className="py-32 px-4 border-t border-white/[0.1] relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-50" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-neon-green/5 blur-[120px] rounded-full" />
 
@@ -221,7 +221,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="relative z-10 text-center"
         >
-          <div className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-4">
+          <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-4">
             Waiting for uplink...
           </div>
           <h2 className="text-3xl md:text-5xl font-black font-mono text-white tracking-tight italic mb-8">
@@ -236,7 +236,7 @@ export default function Home() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-white/5 py-10 px-4">
+      <footer className="border-t border-white/[0.1] py-10 px-4">
         <div className="container max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
@@ -248,14 +248,14 @@ export default function Home() {
                   Entropy Protocol
                 </span>
               </div>
-              <p className="text-[10px] font-mono text-gray-600 leading-relaxed uppercase">
+              <p className="text-[10px] font-mono text-gray-500 leading-relaxed uppercase">
                 Yield-funded gaming infrastructure for the digital<br />
                 concession. Built on hardened cryptographic primitives.
               </p>
             </div>
 
             <div>
-              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-3">
+              <div className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-3">
                 Directory
               </div>
               <div className="space-y-1.5">
@@ -263,7 +263,7 @@ export default function Home() {
                   <a
                     key={item}
                     href="#"
-                    className="block text-[11px] font-mono text-gray-600 hover:text-neon-green transition-colors uppercase"
+                    className="block text-[11px] font-mono text-gray-500 hover:text-neon-green transition-colors uppercase"
                   >
                     {item}
                   </a>
@@ -272,7 +272,7 @@ export default function Home() {
             </div>
 
             <div>
-              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-3">
+              <div className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-3">
                 Communications
               </div>
               <div className="space-y-1.5">
@@ -280,7 +280,7 @@ export default function Home() {
                   <a
                     key={item}
                     href="#"
-                    className="block text-[11px] font-mono text-gray-600 hover:text-neon-green transition-colors uppercase"
+                    className="block text-[11px] font-mono text-gray-500 hover:text-neon-green transition-colors uppercase"
                   >
                     {item}
                   </a>
@@ -289,11 +289,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border-t border-white/5 mt-8 pt-6 flex justify-between">
-            <div className="text-[10px] font-mono text-gray-700">
+          <div className="border-t border-white/[0.1] mt-8 pt-6 flex justify-between">
+            <div className="text-[10px] font-mono text-gray-500">
               © 2024 ENTROPY_FOUNDATION
             </div>
-            <div className="text-[10px] font-mono text-gray-700">
+            <div className="text-[10px] font-mono text-gray-500">
               38.8997° N / 128.6597° S
             </div>
           </div>

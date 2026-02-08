@@ -26,7 +26,7 @@ export function Header({ variant = "app" }: { variant?: "landing" | "app" }) {
 
   if (variant === "landing") {
     return (
-      <header className="fixed top-0 z-40 w-full border-b border-white/5 bg-black/80 backdrop-blur-xl">
+      <header className="fixed top-0 z-40 w-full border-b border-white/[0.1] bg-black/80 backdrop-blur-xl">
         <div className="container flex h-14 items-center justify-between px-4 md:px-6">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2">
@@ -74,7 +74,7 @@ export function Header({ variant = "app" }: { variant?: "landing" | "app" }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/5 bg-black/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.1] bg-black/90 backdrop-blur-xl">
       <div className="flex h-12 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2">
@@ -105,12 +105,12 @@ export function Header({ variant = "app" }: { variant?: "landing" | "app" }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden md:flex items-center gap-2 bg-white/5 border border-white/5 px-3 py-1.5">
-            <Search className="w-3 h-3 text-gray-600" />
+          <div className="hidden md:flex items-center gap-2 bg-white/[0.06] border border-white/[0.1] px-3 py-1.5">
+            <Search className="w-3 h-3 text-gray-500" />
             <input
               type="text"
               placeholder="QUERY_SYSTEM..."
-              className="bg-transparent text-xs font-mono text-gray-400 outline-none w-32 placeholder:text-gray-600"
+              className="bg-transparent text-xs font-mono text-gray-400 outline-none w-32 placeholder:text-gray-500"
             />
           </div>
 
@@ -130,7 +130,7 @@ export function Header({ variant = "app" }: { variant?: "landing" | "app" }) {
               >
                 {formattedAddress}
               </button>
-              <button className="w-7 h-7 border border-white/10 flex items-center justify-center hover:border-white/20 transition-colors">
+              <button className="w-7 h-7 border border-white/[0.14] flex items-center justify-center hover:border-white/30 transition-colors">
                 <Bell className="w-3 h-3 text-gray-500" />
               </button>
             </div>

@@ -25,7 +25,7 @@ export default function FairnessPage() {
       <main className="flex-1 p-6 max-w-5xl mx-auto w-full space-y-8 page-enter">
         {/* Header */}
         <div>
-          <div className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-2">
+          <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-2">
             SYS.VERIFIER / V2.4.0-STABLE
           </div>
           <h1 className="text-3xl md:text-4xl font-black font-mono text-white tracking-tight italic mb-3">
@@ -46,25 +46,25 @@ export default function FairnessPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Server Seed */}
-            <div className="border border-white/5 bg-white/[0.02] p-4 space-y-2">
-              <div className="text-[10px] font-mono text-gray-600 uppercase">Server Seed (Hashed)</div>
-              <div className="bg-black border border-white/5 p-3 text-[11px] font-mono text-neon-green break-all leading-relaxed min-h-[60px]">
+            <div className="border border-white/[0.12] bg-white/[0.04] p-4 space-y-2">
+              <div className="text-[10px] font-mono text-gray-500 uppercase">Server Seed (Hashed)</div>
+              <div className="bg-black border border-white/[0.1] p-3 text-[11px] font-mono text-neon-green break-all leading-relaxed min-h-[60px]">
                 {serverSeed}
               </div>
             </div>
 
             {/* Client Seed */}
-            <div className="border border-white/5 bg-white/[0.02] p-4 space-y-2">
-              <div className="text-[10px] font-mono text-gray-600 uppercase">Client Seed</div>
-              <div className="bg-black border border-white/5 p-3 text-[11px] font-mono text-white min-h-[60px]">
+            <div className="border border-white/[0.12] bg-white/[0.04] p-4 space-y-2">
+              <div className="text-[10px] font-mono text-gray-500 uppercase">Client Seed</div>
+              <div className="bg-black border border-white/[0.1] p-3 text-[11px] font-mono text-white min-h-[60px]">
                 {clientSeed}
               </div>
             </div>
 
             {/* Block Hash */}
-            <div className="border border-white/5 bg-white/[0.02] p-4 space-y-2">
-              <div className="text-[10px] font-mono text-gray-600 uppercase">Block Hash</div>
-              <div className="bg-black border border-white/5 p-3 text-[11px] font-mono text-white break-all leading-relaxed min-h-[60px]">
+            <div className="border border-white/[0.12] bg-white/[0.04] p-4 space-y-2">
+              <div className="text-[10px] font-mono text-gray-500 uppercase">Block Hash</div>
+              <div className="bg-black border border-white/[0.1] p-3 text-[11px] font-mono text-white break-all leading-relaxed min-h-[60px]">
                 {blockHash}
               </div>
             </div>
@@ -78,13 +78,13 @@ export default function FairnessPage() {
             <span>[ Recomputation_Logic ]</span>
           </div>
 
-          <div className="border border-white/5 bg-[#0a0a0a] p-5 font-mono text-xs relative">
+          <div className="border border-white/[0.12] bg-[#0a0a0a] p-5 font-mono text-xs relative">
             <button
               onClick={() => handleCopy(
                 `const combine = (sSeed, cSeed, bHash) => {\n  const data = \`\${sSeed}:\${cSeed}:\${bHash}\`;\n  return crypto.createHash('sha256').update(data).digest('hex');\n};`,
                 "code"
               )}
-              className="absolute top-3 right-3 w-7 h-7 border border-white/10 flex items-center justify-center text-gray-600 hover:text-neon-green hover:border-neon-green/30 transition-colors"
+              className="absolute top-3 right-3 w-7 h-7 border border-white/[0.14] flex items-center justify-center text-gray-500 hover:text-neon-green hover:border-neon-green/30 transition-colors"
             >
               {copied === "code" ? <CheckCircle className="w-3 h-3 text-neon-green" /> : <Copy className="w-3 h-3" />}
             </button>
@@ -125,7 +125,7 @@ export default function FairnessPage() {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-white/5">
+            <div className="mt-6 pt-4 border-t border-white/[0.1]">
               <div className="text-gray-600 mb-1">
                 <span className="text-gray-700">008</span>
                 {"  "}
@@ -145,27 +145,27 @@ export default function FairnessPage() {
         {/* Outcome Determination + Verified */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Outcome */}
-          <div className="border border-white/5 bg-white/[0.02] p-6 space-y-4">
+          <div className="border border-white/[0.12] bg-white/[0.04] p-6 space-y-4">
             <h3 className="text-sm font-mono font-bold text-white uppercase">Outcome Determination</h3>
 
             <div className="space-y-3">
               <div className="flex justify-between text-xs font-mono">
-                <span className="text-gray-600 uppercase">Range</span>
+                <span className="text-gray-500 uppercase">Range</span>
                 <span className="text-white">0 - 1,000,000</span>
               </div>
               <div className="flex justify-between text-xs font-mono">
-                <span className="text-gray-600 uppercase">Operation</span>
+                <span className="text-gray-500 uppercase">Operation</span>
                 <span className="text-white">hash % 1,000,000</span>
               </div>
-              <div className="border-t border-white/5 pt-3 flex justify-between text-xs font-mono">
-                <span className="text-gray-600 uppercase">Result</span>
+              <div className="border-t border-white/[0.1] pt-3 flex justify-between text-xs font-mono">
+                <span className="text-gray-500 uppercase">Result</span>
                 <span className="text-2xl font-black text-white">742,914</span>
               </div>
             </div>
           </div>
 
           {/* Verified */}
-          <div className="border border-white/5 bg-white/[0.02] p-6 flex flex-col items-center justify-center text-center space-y-3">
+          <div className="border border-white/[0.12] bg-white/[0.04] p-6 flex flex-col items-center justify-center text-center space-y-3">
             <div className="border border-neon-green bg-neon-green/10 px-5 py-2 flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-neon-green" />
               <span className="text-xs font-mono font-bold text-neon-green uppercase">Verified</span>
@@ -174,7 +174,7 @@ export default function FairnessPage() {
             <p className="text-[10px] font-mono text-gray-500 leading-relaxed max-w-xs">
               System confirmed: Outcome matches the provided cryptographic proof. Data Integrity is 100%.
             </p>
-            <button className="border border-white/10 px-4 py-2 text-[10px] font-mono text-gray-500 uppercase hover:text-white hover:border-white/20 transition-colors mt-4">
+            <button className="border border-white/[0.14] px-4 py-2 text-[10px] font-mono text-gray-400 uppercase hover:text-white hover:border-white/25 transition-colors mt-4">
               Export_Audit_Data
             </button>
           </div>
@@ -182,13 +182,13 @@ export default function FairnessPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 px-4 py-3 flex justify-between items-center">
-        <div className="flex gap-6 text-[10px] font-mono text-gray-700">
+      <footer className="border-t border-white/[0.1] px-4 py-3 flex justify-between items-center">
+        <div className="flex gap-6 text-[10px] font-mono text-gray-500">
           <span>PROTOCOLS</span>
           <span>OPEN_SRC</span>
           <span>HEALTH: 100%</span>
         </div>
-        <div className="text-[10px] font-mono text-gray-700">
+        <div className="text-[10px] font-mono text-gray-500">
           VORTEX LINK STATUS DATA 2.4.172 © 2024 · TIMESTAMP IDENTIFICATION LAYER
         </div>
       </footer>

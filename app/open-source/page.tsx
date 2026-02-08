@@ -17,7 +17,7 @@ export default function OpenSourcePage() {
       <Header />
       <main className="flex-1 p-6 max-w-4xl mx-auto w-full space-y-8 page-enter">
         <div>
-          <div className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-2">
+          <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-2">
             SYS.SOURCE / PUBLIC_AUDIT
           </div>
           <h1 className="text-3xl font-black font-mono text-white tracking-tight italic">
@@ -30,14 +30,14 @@ export default function OpenSourcePage() {
         </div>
 
         {/* Repository */}
-        <div className="border border-white/5 bg-white/[0.02] p-5 flex items-center justify-between">
+        <div className="border border-white/[0.12] bg-white/[0.04] p-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 border border-white/10 flex items-center justify-center">
+            <div className="w-10 h-10 border border-white/[0.14] flex items-center justify-center">
               <Github className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="text-sm font-mono text-white font-bold">entropy-protocol/contracts</div>
-              <div className="text-[10px] font-mono text-gray-600">Monad Testnet • Solidity 0.8.24</div>
+              <div className="text-[10px] font-mono text-gray-500">Monad Testnet • Solidity 0.8.24</div>
             </div>
           </div>
           <a
@@ -57,20 +57,20 @@ export default function OpenSourcePage() {
             <span>[ Verified_Contracts ]</span>
           </div>
 
-          <div className="border border-white/5 divide-y divide-white/5">
+          <div className="border border-white/[0.12] divide-y divide-white/[0.08]">
             {contracts.map((contract) => (
-              <div key={contract.name} className="px-5 py-4 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+              <div key={contract.name} className="px-5 py-4 flex items-center justify-between hover:bg-white/[0.03] transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-8 h-8 border border-neon-green/20 bg-neon-green/5 flex items-center justify-center">
                     <FileCode className="w-3.5 h-3.5 text-neon-green" />
                   </div>
                   <div>
                     <div className="text-sm font-mono text-neon-green font-bold">{contract.name}</div>
-                    <div className="text-[10px] font-mono text-gray-600 mt-0.5">{contract.desc}</div>
+                    <div className="text-[10px] font-mono text-gray-500 mt-0.5">{contract.desc}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="text-[10px] font-mono text-gray-700">{contract.lines} LINES</div>
+                  <div className="text-[10px] font-mono text-gray-500">{contract.lines} LINES</div>
                   {contract.verified && (
                     <div className="flex items-center gap-1 text-[10px] font-mono text-neon-green">
                       <Shield className="w-3 h-3" />
@@ -85,23 +85,23 @@ export default function OpenSourcePage() {
 
         {/* Audit Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="border border-white/5 bg-white/[0.02] p-5 space-y-3">
+          <div className="border border-white/[0.12] bg-white/[0.04] p-5 space-y-3">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-neon-green" />
               <span className="text-sm font-mono text-white font-bold uppercase">Audit Status</span>
             </div>
-            <p className="text-[10px] font-mono text-gray-600 leading-relaxed">
+            <p className="text-[10px] font-mono text-gray-500 leading-relaxed">
               Contracts audited by independent security researchers. Full audit report available on request.
             </p>
             <div className="text-xs font-mono text-neon-green">STATUS: PASSED ✓</div>
           </div>
 
-          <div className="border border-white/5 bg-white/[0.02] p-5 space-y-3">
+          <div className="border border-white/[0.12] bg-white/[0.04] p-5 space-y-3">
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-white" />
               <span className="text-sm font-mono text-white font-bold uppercase">Bug Bounty</span>
             </div>
-            <p className="text-[10px] font-mono text-gray-600 leading-relaxed">
+            <p className="text-[10px] font-mono text-gray-500 leading-relaxed">
               Active bug bounty program for critical and high-severity vulnerabilities. Rewards up to $50,000.
             </p>
             <div className="text-xs font-mono text-gray-400">PROGRAM: ACTIVE</div>
@@ -109,9 +109,9 @@ export default function OpenSourcePage() {
         </div>
       </main>
 
-      <footer className="border-t border-white/5 px-4 py-3 flex justify-between items-center">
-        <div className="text-[10px] font-mono text-gray-700">ENTROPY_PROTOCOL // OPEN_SRC</div>
-        <div className="text-[10px] font-mono text-gray-700">5 CONTRACTS VERIFIED</div>
+      <footer className="border-t border-white/[0.1] px-4 py-3 flex justify-between items-center">
+        <div className="text-[10px] font-mono text-gray-500">ENTROPY_PROTOCOL // OPEN_SRC</div>
+        <div className="text-[10px] font-mono text-gray-500">5 CONTRACTS VERIFIED</div>
       </footer>
     </div>
   );

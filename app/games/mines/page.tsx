@@ -12,11 +12,11 @@ export default function MinesPage() {
       </main>
 
       {/* Bottom bar */}
-      <footer className="border-t border-white/5 px-4 py-2 flex justify-between items-center">
-        <span className="text-[10px] font-mono text-gray-700">
+      <footer className="border-t border-white/[0.1] px-4 py-2 flex justify-between items-center">
+        <span className="text-[10px] font-mono text-gray-500">
           ENCRYPTED END-TO-END // YIELD PROTOCOL V.0.1.3
         </span>
-        <div className="flex gap-6 text-[10px] font-mono text-gray-700">
+        <div className="flex gap-6 text-[10px] font-mono text-gray-500">
           <span>PROVABLY FAIR</span>
           <span>AUDITED BY CYBERSAFE</span>
         </div>

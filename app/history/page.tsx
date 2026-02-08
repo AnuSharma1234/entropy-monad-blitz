@@ -23,10 +23,10 @@ export default function HistoryPage() {
       <Header />
       <div className="flex flex-1">
         {/* Left Sidebar */}
-        <aside className="hidden lg:flex w-52 shrink-0 border-r border-white/5 bg-black flex-col p-4">
+        <aside className="hidden lg:flex w-52 shrink-0 border-r border-white/[0.1] bg-black flex-col p-4">
           <div className="mb-6">
             <div className="text-sm font-mono font-bold text-white mb-0.5">NODE_772</div>
-            <div className="text-[10px] font-mono text-gray-600 uppercase">Verified_Operator_V2</div>
+            <div className="text-[10px] font-mono text-gray-500 uppercase">Verified_Operator_V2</div>
           </div>
 
           <nav className="space-y-0.5">
@@ -42,7 +42,7 @@ export default function HistoryPage() {
                   "flex items-center gap-3 px-3 py-2.5 text-xs font-mono transition-all w-full text-left border-l-2",
                   item.active
                     ? "bg-neon-green/10 text-neon-green border-neon-green"
-                    : "text-gray-500 hover:text-white hover:bg-white/5 border-transparent"
+                    : "text-gray-400 hover:text-white hover:bg-white/[0.06] border-transparent"
                 )}
               >
                 <span>{item.icon}</span>
@@ -53,8 +53,8 @@ export default function HistoryPage() {
 
           <div className="flex-1" />
 
-          <div className="border border-white/5 p-3">
-            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Network_Status</div>
+          <div className="border border-white/[0.12] p-3">
+            <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Network_Status</div>
             <div className="flex items-center gap-1.5">
               <span className="status-dot online" />
               <span className="text-[10px] font-mono text-neon-green uppercase">Operational</span>
@@ -67,20 +67,20 @@ export default function HistoryPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-[10px] font-mono text-gray-600 border border-white/10 px-2 py-0.5 uppercase">
+                <span className="text-[10px] font-mono text-gray-500 border border-white/[0.14] px-2 py-0.5 uppercase">
                   LOG_V1.0.4
                 </span>
-                <span className="text-[10px] font-mono text-gray-600 uppercase">Stable_Release</span>
+                <span className="text-[10px] font-mono text-gray-500 uppercase">Stable_Release</span>
               </div>
               <h1 className="text-2xl md:text-3xl font-black font-mono text-white tracking-tight italic">
                 Transaction_Logs
               </h1>
-              <p className="text-[10px] font-mono text-gray-600 mt-1 uppercase">
+              <p className="text-[10px] font-mono text-gray-500 mt-1 uppercase">
                 Real-time on_chain event_monitoring active
               </p>
             </div>
 
-            <button className="flex items-center gap-2 border border-white/10 px-4 py-2.5 text-xs font-mono text-gray-400 hover:text-white hover:border-white/20 transition-colors uppercase">
+            <button className="flex items-center gap-2 border border-white/[0.14] px-4 py-2.5 text-xs font-mono text-gray-400 hover:text-white hover:border-white/25 transition-colors uppercase">
               <Download className="w-3.5 h-3.5" />
               Export_CSV
             </button>
@@ -96,7 +96,7 @@ export default function HistoryPage() {
                   "text-[10px] font-mono px-4 py-2 border uppercase transition-all",
                   activeFilter === filter
                     ? "border-neon-green bg-neon-green/10 text-neon-green"
-                    : "border-white/10 text-gray-500 hover:text-white hover:border-white/20"
+                    : "border-white/[0.14] text-gray-400 hover:text-white hover:border-white/25"
                 )}
               >
                 {filter}
@@ -105,21 +105,21 @@ export default function HistoryPage() {
           </div>
 
           {/* Table */}
-          <div className="border border-white/5 bg-white/[0.02]">
+          <div className="border border-white/[0.12] bg-white/[0.04]">
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-white/5">
-                    <th className="px-5 py-4 text-[10px] font-mono text-gray-600 uppercase font-normal">Timestamp</th>
-                    <th className="px-5 py-4 text-[10px] font-mono text-gray-600 uppercase font-normal">Event_Type</th>
-                    <th className="px-5 py-4 text-[10px] font-mono text-gray-600 uppercase font-normal">TX_Hash</th>
-                    <th className="px-5 py-4 text-[10px] font-mono text-gray-600 uppercase font-normal text-right">Amount</th>
-                    <th className="px-5 py-4 text-[10px] font-mono text-gray-600 uppercase font-normal text-right">Status</th>
+                  <tr className="border-b border-white/[0.1]">
+                    <th className="px-5 py-4 text-[10px] font-mono text-gray-500 uppercase font-normal">Timestamp</th>
+                    <th className="px-5 py-4 text-[10px] font-mono text-gray-500 uppercase font-normal">Event_Type</th>
+                    <th className="px-5 py-4 text-[10px] font-mono text-gray-500 uppercase font-normal">TX_Hash</th>
+                    <th className="px-5 py-4 text-[10px] font-mono text-gray-500 uppercase font-normal text-right">Amount</th>
+                    <th className="px-5 py-4 text-[10px] font-mono text-gray-500 uppercase font-normal text-right">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {MOCK_HISTORY.map((tx, i) => (
-                    <tr key={i} className="border-b border-white/5 last:border-b-0 hover:bg-white/[0.02] transition-colors">
+                    <tr key={i} className="border-b border-white/[0.08] last:border-b-0 hover:bg-white/[0.03] transition-colors">
                       <td className="px-5 py-4 text-xs font-mono text-gray-500">{tx.date}</td>
                       <td className="px-5 py-4">
                         <span
@@ -165,19 +165,19 @@ export default function HistoryPage() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between px-5 py-3 border-t border-white/5">
-              <span className="text-[10px] font-mono text-gray-600 uppercase">Showing 5 of 128 Events</span>
+            <div className="flex items-center justify-between px-5 py-3 border-t border-white/[0.1]">
+              <span className="text-[10px] font-mono text-gray-500 uppercase">Showing 5 of 128 Events</span>
               <div className="flex gap-1">
-                <button className="w-7 h-7 border border-white/10 flex items-center justify-center text-gray-600 hover:text-white hover:border-white/20 transition-colors">
+                <button className="w-7 h-7 border border-white/[0.14] flex items-center justify-center text-gray-500 hover:text-white hover:border-white/25 transition-colors">
                   <ChevronLeft className="w-3 h-3" />
                 </button>
                 <button className="w-7 h-7 border border-neon-green bg-neon-green/10 text-neon-green flex items-center justify-center text-[10px] font-mono">
                   1
                 </button>
-                <button className="w-7 h-7 border border-white/10 flex items-center justify-center text-[10px] font-mono text-gray-500 hover:text-white hover:border-white/20 transition-colors">
+                <button className="w-7 h-7 border border-white/[0.14] flex items-center justify-center text-[10px] font-mono text-gray-400 hover:text-white hover:border-white/25 transition-colors">
                   2
                 </button>
-                <button className="w-7 h-7 border border-white/10 flex items-center justify-center text-gray-600 hover:text-white hover:border-white/20 transition-colors">
+                <button className="w-7 h-7 border border-white/[0.14] flex items-center justify-center text-gray-500 hover:text-white hover:border-white/25 transition-colors">
                   <ChevronRight className="w-3 h-3" />
                 </button>
               </div>
@@ -187,12 +187,12 @@ export default function HistoryPage() {
       </div>
 
       {/* Bottom bar */}
-      <footer className="border-t border-white/5 px-4 py-2 flex justify-between items-center">
-        <div className="flex gap-4 text-[10px] font-mono text-gray-700">
+      <footer className="border-t border-white/[0.1] px-4 py-2 flex justify-between items-center">
+        <div className="flex gap-4 text-[10px] font-mono text-gray-500">
           <span>⊞ BLOCK: 231,002,118</span>
           <span>⚡ LATENCY: 12ms</span>
         </div>
-        <div className="flex gap-4 text-[10px] font-mono text-gray-700">
+        <div className="flex gap-4 text-[10px] font-mono text-gray-500">
           <span>CONNECTION: SECURED_SSL_V3</span>
           <span className="text-white font-bold">SYSTEM_NOMINAL</span>
         </div>
