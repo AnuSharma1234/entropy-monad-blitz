@@ -912,7 +912,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 13. Spectator Feed
+- [x] 13. Spectator Feed
 
   **What to do**:
   - Create `app/spectator/page.tsx`
