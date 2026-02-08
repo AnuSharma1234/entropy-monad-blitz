@@ -12,8 +12,8 @@ export const monadTestnet = defineChain({
     symbol: 'MON',
   },
   rpcUrls: {
-    default: { http: ['https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ed3970bf28100/'] }, // Example URL
-    public: { http: ['https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ed3970bf28100/'] },
+    default: { http: ['https://testnet-rpc.monad.xyz'] },
+    public: { http: ['https://testnet-rpc.monad.xyz'] },
   },
   blockExplorers: {
     default: { name: 'Monad Explorer', url: 'https://explorer.monad.xyz' },
