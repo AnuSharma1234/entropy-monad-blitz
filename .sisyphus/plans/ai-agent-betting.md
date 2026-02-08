@@ -573,7 +573,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 7. Mines Game Contract
+- [x] 7. Mines Game Contract
 
   **What to do**:
   - Create `MinesGame.sol` - grid with hidden mines
@@ -626,7 +626,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 8. Plinko Game Contract
+- [x] 8. Plinko Game Contract
 
   **What to do**:
   - Create `PlinkoGame.sol` - ball drops through pegs
