@@ -1564,3 +1564,99 @@ useEffect(() => {
 
 ### ✓ TASK COMPLETE - Leaderboard Ready
 
+
+## Task 15-17: Integration Blockers (Paused)
+
+### Current Status: 2026-02-08
+
+#### ✓ Progress So Far
+- Tasks 1-10: Complete (all contracts, agent service, Supabase)
+- Tasks 11-14: Complete (all 4 frontend pages)
+- **14/17 tasks complete (82%)**
+
+#### ✓ Completed in This Session
+- Task 11: Agent Creation UI (`app/agent/create/page.tsx`)
+- Task 12: Agent Profile Page (`app/agent/[id]/page.tsx`)
+- Task 13: Spectator Feed (`app/spectator/page.tsx`)
+- Task 14: Leaderboard (`app/leaderboard/page.tsx`)
+
+#### ✓ Partial Progress on Task 15
+- ABIs extracted from all 6 contracts:
+  - AgentRegistry.json (2.2KB)
+  - AgentPool.json (7.4KB)
+  - CoinFlipGame.json (3.7KB)
+  - DiceGame.json (4.4KB)
+  - MinesGame.json (5.9KB)
+  - PlinkoGame.json (5.3KB)
+
+#### ⚠ Blocker: Wagmi V2 API Changes
+- Legacy API: `useContractWrite`, `useContractRead`, `useWaitForTransaction`
+- New API: Different structure (need wagmi v2 documentation)
+- Created hooks but they have TypeScript errors due to API mismatch
+- Files created but non-functional:
+  - `hooks/useAgentRegistry.ts` (TypeScript errors)
+  - `hooks/useAgentPool.ts` (TypeScript errors)
+
+#### ! Remaining Work (Tasks 15-17)
+
+**Task 15: Wire Frontend to Contracts**
+- Fix wagmi hook TypeScript errors (need v2 API docs)
+- Deploy contracts to Monad testnet
+- Get deployment addresses
+- Update `.env` with contract addresses
+- Wire agent creation page to use `useAgentRegistry` hook
+- Wire stake page to use `useAgentPool` hook
+- Test end-to-end contract interaction
+
+**Task 16: Agent Decision Loop**
+- Implement background worker in `agent-service/src/loop.ts`
+- 5-10 second decision interval per agent
+- Gemini API integration for decisions
+- Contract calls to place bets
+- Supabase for logging decisions
+- Realtime broadcast to spectator feed
+
+**Task 17: E2E Testing**
+- Playwright test suite
+- Full user flow: connect → create agent → deposit → agent plays
+- Verify all pages render correctly
+- Verify contract interactions work
+- Verify real-time updates appear
+
+#### Next Steps for Continuation
+1. **Research wagmi v2 API** - Check latest wagmi docs or GitHub examples
+2. **Fix hooks** - Update to correct v2 syntax
+3. **Deploy contracts** - Use `forge script` to deploy to Monad testnet
+4. **Get faucet MON** - Fund deployer wallet
+5. **Complete Task 15** - Wire all pages to contracts
+6. **Implement Task 16** - Decision loop
+7. **Run Task 17** - E2E tests
+
+### Files Created This Session
+```
+app/agent/create/page.tsx      (274 lines) - Agent creation UI
+app/agent/[id]/page.tsx         (283 lines) - Agent profile with radar chart
+app/spectator/page.tsx          (299 lines) - Live activity feed + chat
+app/leaderboard/page.tsx        (252 lines) - Sortable rankings table
+lib/contracts/*.json            (6 files)   - Contract ABIs
+hooks/useAgentRegistry.ts       (partial)   - Registry hook (needs fix)
+hooks/useAgentPool.ts           (partial)   - Pool hook (needs fix)
+```
+
+### Build Status
+- ✓ All frontend pages compile successfully
+- ✓ 81/81 contract tests passing
+- ✓ `bun run build` succeeds
+- ⚠ Hooks have TypeScript errors (not imported yet, don't break build)
+
+### Commits Made This Session
+1. `feat(frontend): add agent creation page with stat sliders`
+2. `feat(frontend): add agent profile page with radar chart`
+3. `feat(frontend): add spectator feed with live chat`
+4. `feat(frontend): add leaderboard with sortable rankings`
+
+### ✓ MAJOR MILESTONE REACHED
+**14/17 tasks complete - All user-facing frontend functionality built!**
+
+Remaining work is purely integration (Task 15-17).
+
