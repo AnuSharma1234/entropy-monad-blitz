@@ -311,7 +311,7 @@ Wave 4 (Integration - After Wave 3):
 
 ### Phase 1: Smart Contracts
 
-- [ ] 3. Pool Contract - User Deposits and Withdrawals
+- [x] 3. Pool Contract - User Deposits and Withdrawals
 
   **What to do**:
   - Create `AgentPool.sol` - manages user deposits
@@ -379,7 +379,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 4. Agent Registry Contract
+- [x] 4. Agent Registry Contract
 
   **What to do**:
   - Create `AgentRegistry.sol` - stores agent metadata on-chain
@@ -446,7 +446,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 5. CoinFlip Game Contract
+- [x] 5. CoinFlip Game Contract
 
   **What to do**:
   - Create `CoinFlipGame.sol` - simplest game to start
@@ -519,7 +519,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 6. Dice Game Contract
+- [x] 6. Dice Game Contract
 
   **What to do**:
   - Create `DiceGame.sol` - roll 1-100, bet over/under target
