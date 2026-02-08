@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Sidebar } from "@/components/ui/Sidebar";
@@ -28,7 +28,7 @@ const MOCK_POSITIONS = [
   },
 ];
 
-export default function StakePage() {
+function StakePageContent() {
   const searchParams = useSearchParams();
   const agentIdParam = searchParams.get("agentId");
   const agentId = agentIdParam ? BigInt(agentIdParam) : 1n;
@@ -376,5 +376,24 @@ export default function StakePage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function StakePageFallback() {
+  return (
+    <div className="flex min-h-screen flex-col bg-black">
+      <Header />
+      <div className="flex-1 flex items-center justify-center">
+        <p className="text-sm font-mono text-gray-500">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+export default function StakePage() {
+  return (
+    <Suspense fallback={<StakePageFallback />}>
+      <StakePageContent />
+    </Suspense>
   );
 }
