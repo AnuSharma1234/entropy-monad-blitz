@@ -854,7 +854,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 12. Agent Profile Page
+- [x] 12. Agent Profile Page
 
   **What to do**:
   - Create `app/agent/[id]/page.tsx`

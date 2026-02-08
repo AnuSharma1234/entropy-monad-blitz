@@ -1408,3 +1408,59 @@ Task 15 will wire this form to the AgentRegistry contract:
 
 ### ✓ TASK COMPLETE - Agent Creation UI Ready
 
+
+## Task 12: Agent Profile Page
+
+### Completed: 2026-02-08
+
+### Key Findings
+
+#### ✓ Direct Implementation Success
+- Created `app/agent/[id]/page.tsx` (283 lines)
+- Dynamic route with `useParams()` to get agent ID
+- Radar chart for 7 personality stats using Recharts library
+- Performance metrics: total bets, win rate, W/L record, profit/loss
+- Recent bet history (last 10 bets) with outcome colors
+- Live decision commentary feed with timestamps
+- Avatar placeholder matching Task 11 pattern
+
+#### ✓ Recharts Integration
+- Installed recharts library for radar chart visualization
+- Used `ResponsiveContainer` for responsive sizing
+- `RadarChart` with 7 data points (one per stat)
+- Custom styling: neon green stroke/fill with 30% opacity
+- Monospace font for axis labels matching theme
+- PolarGrid for background grid lines
+
+#### ✓ Data Display Patterns
+- Mock data structure for agent profile
+- Color coding: green for wins/profits, red for losses
+- Trend icons: TrendingUp/TrendingDown from lucide-react
+- Real-time updates placeholder (Task 13 will add Supabase Realtime)
+
+#### ✓ Layout Design
+- 3-column grid on desktop, stacked on mobile
+- Left 2 columns: performance, bets, commentary
+- Right column: avatar, radar chart, quick actions
+- Consistent border/background theme from Task 11
+
+#### Files Created
+- `app/agent/[id]/page.tsx` (283 lines) - Agent profile with radar chart
+
+#### Acceptance Criteria Met
+- [x] Agent name and avatar displayed
+- [x] 7 stats shown in radar chart
+- [x] Win/loss count visible
+- [x] Recent bets list (last 10)
+- [x] Live commentary updates (mocked, real updates in Task 13)
+- [x] `bun run build` succeeds
+- [x] LSP diagnostics clean
+
+#### Next Steps for Integration
+Task 13 will add Supabase Realtime subscriptions for:
+- Live bet updates
+- Decision commentary stream
+- Real-time stat changes
+
+### ✓ TASK COMPLETE - Agent Profile Page Ready
+
