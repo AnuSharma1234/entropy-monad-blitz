@@ -2,6 +2,8 @@ import express, { type Request, type Response } from "express";
 import type { DecisionRequest, DecisionResponse } from "./types";
 import { makeDecision } from "./gemini";
 import { validateApiKey } from "./crypto";
+import { startDecisionLoop, type LoopConfig } from "./loop";
+import type { Address } from "viem";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -64,6 +66,44 @@ app.post("/api/agent/decide", async (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
   console.log(`Agent service listening on port ${PORT}`);
+  
+  // Start the decision loop if all required environment variables are set
+  const requiredEnvVars = [
+    'SUPABASE_URL',
+    'SUPABASE_SERVICE_ROLE_KEY',
+    'MONAD_RPC_URL',
+    'DEPLOYER_PRIVATE_KEY',
+    'COINFLIP_ADDRESS',
+    'DICE_ADDRESS',
+    'MINES_ADDRESS',
+    'PLINKO_ADDRESS',
+    'AGENT_POOL_ADDRESS',
+  ];
+  
+  const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+  
+  if (missingVars.length > 0) {
+    console.warn(`⚠️  Decision loop disabled. Missing environment variables: ${missingVars.join(', ')}`);
+    console.warn('   Set these variables in .env to enable autonomous agent decisions');
+  } else {
+    console.log('✅ Starting autonomous agent decision loop...');
+    
+    const loopConfig: LoopConfig = {
+      supabaseUrl: process.env.SUPABASE_URL!,
+      supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      monadRpcUrl: process.env.MONAD_RPC_URL!,
+      deployerPrivateKey: process.env.DEPLOYER_PRIVATE_KEY as Address,
+      coinflipAddress: process.env.COINFLIP_ADDRESS as Address,
+      diceAddress: process.env.DICE_ADDRESS as Address,
+      minesAddress: process.env.MINES_ADDRESS as Address,
+      plinkoAddress: process.env.PLINKO_ADDRESS as Address,
+      agentPoolAddress: process.env.AGENT_POOL_ADDRESS as Address,
+    };
+    
+    startDecisionLoop(loopConfig).catch((error) => {
+      console.error('❌ Failed to start decision loop:', error);
+    });
+  }
 });
 
 export default app;
