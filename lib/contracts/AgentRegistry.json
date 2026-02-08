@@ -1,15 +1,232 @@
-
-╭----------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------╮
-| Type     | Signature                                                                                | Selector                                                           |
-+==========================================================================================================================================================================+
-| event    | AgentRegistered(uint256,string,address)                                                  | 0xaef1fcdf962a03943b677ae3b92ef1b34c972aeef794ed6e9ba5f599b461883b |
-|----------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| event    | AgentUpdated(uint256)                                                                    | 0xf9ad94c5cd385423b7d420bd953716dc348c65914cceb49759c095b7ba0064a9 |
-|----------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function | getAgent(uint256) view returns (string,AgentRegistry.AgentStats,address,uint256,uint256) | 0x2de5aaf7                                                         |
-|----------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function | registerAgent(string,AgentRegistry.AgentStats) nonpayable returns (uint256)              | 0xef4e18f0                                                         |
-|----------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function | updateStats(uint256,AgentRegistry.AgentStats) nonpayable                                 | 0x837db6bc                                                         |
-╰----------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------╯
-
+[
+  {
+    "type": "function",
+    "name": "getAgent",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "name",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "stats",
+        "type": "tuple",
+        "internalType": "struct AgentRegistry.AgentStats",
+        "components": [
+          {
+            "name": "riskTolerance",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "aggression",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "analytical",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "patience",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "unpredictability",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "herdMentality",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "humor",
+            "type": "uint8",
+            "internalType": "uint8"
+          }
+        ]
+      },
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "createdAt",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "lastUpdated",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "registerAgent",
+    "inputs": [
+      {
+        "name": "name",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "stats",
+        "type": "tuple",
+        "internalType": "struct AgentRegistry.AgentStats",
+        "components": [
+          {
+            "name": "riskTolerance",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "aggression",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "analytical",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "patience",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "unpredictability",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "herdMentality",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "humor",
+            "type": "uint8",
+            "internalType": "uint8"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateStats",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "stats",
+        "type": "tuple",
+        "internalType": "struct AgentRegistry.AgentStats",
+        "components": [
+          {
+            "name": "riskTolerance",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "aggression",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "analytical",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "patience",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "unpredictability",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "herdMentality",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "humor",
+            "type": "uint8",
+            "internalType": "uint8"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "AgentRegistered",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "owner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "AgentUpdated",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  }
+]

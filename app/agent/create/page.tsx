@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useWallet } from "@/hooks/useWallet";
+import { useAgentRegistry } from "@/hooks/useAgentRegistry";
 import { Zap, Sparkles, Brain, Clock, Shuffle, Users, Smile } from "lucide-react";
 
 const STAT_CONFIG = [
@@ -58,6 +59,7 @@ type StatKey = typeof STAT_CONFIG[number]["key"];
 export default function CreateAgentPage() {
   const router = useRouter();
   const { isConnected, address } = useWallet();
+  const { registerAgent, isPending, isConfirming, isSuccess, isError, error, txHash } = useAgentRegistry();
   
   const [agentName, setAgentName] = useState("");
   const [geminiApiKey, setGeminiApiKey] = useState("");
@@ -97,10 +99,32 @@ export default function CreateAgentPage() {
       apiKey: geminiApiKey.substring(0, 10) + "...",
     });
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    router.push("/agent/1");
+    // Convert stats to contract format (array of bigint)
+    const statsArray: [bigint, bigint, bigint, bigint, bigint, bigint, bigint] = [
+      BigInt(stats.riskTolerance),
+      BigInt(stats.aggression),
+      BigInt(stats.analytical),
+      BigInt(stats.patience),
+      BigInt(stats.unpredictability),
+      BigInt(stats.herdMentality),
+      BigInt(stats.humor),
+    ];
+
+    // Store Gemini API key in localStorage (encrypted in production)
+    localStorage.setItem(`agent_api_key_${agentName}`, geminiApiKey);
+
+    // Call contract to register agent
+    registerAgent(agentName, statsArray);
   };
+
+  // Redirect to agent profile on successful registration
+  useEffect(() => {
+    if (isSuccess) {
+      // In production, parse AgentRegistered event to get actual agentId
+      // For now, redirect to placeholder
+      router.push("/agent/1");
+    }
+  }, [isSuccess, router]);
 
   if (!isConnected) {
     return (
@@ -251,12 +275,32 @@ export default function CreateAgentPage() {
             variant="default"
             size="lg"
             fullWidth
-            disabled={!canSubmit}
+            disabled={!canSubmit || isPending || isConfirming}
           >
-            {!isValidBudget 
+            {isPending
+              ? "Waiting for Signature..."
+              : isConfirming
+              ? "Confirming Transaction..."
+              : !isValidBudget 
               ? "Allocate All 35 Points" 
               : "Deploy Agent"}
           </Button>
+
+          {isError && error && (
+            <div className="border border-error/30 bg-error/10 p-4">
+              <p className="text-xs font-mono text-error">
+                ⚠ Transaction Failed: {error.message}
+              </p>
+            </div>
+          )}
+
+          {txHash && (
+            <div className="border border-neon-green/30 bg-neon-green/10 p-4">
+              <p className="text-xs font-mono text-neon-green">
+                ✓ Transaction Hash: {txHash}
+              </p>
+            </div>
+          )}
         </form>
       </main>
 

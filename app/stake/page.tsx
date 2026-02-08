@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/ui/Header";
 import { Sidebar } from "@/components/ui/Sidebar";
 import { Button } from "@/components/ui/Button";
 import { useWallet } from "@/hooks/useWallet";
+import { useAgentPool } from "@/hooks/useAgentPool";
 import { cn } from "@/lib/utils";
 import { AlertTriangle, ArrowUpRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -31,6 +32,47 @@ export default function StakePage() {
   const [withdrawAmount, setWithdrawAmount] = useState("4.20");
   const [stakeMode, setStakeMode] = useState<"stake" | "withdraw">("stake");
   const { isConnected, balance } = useWallet();
+  
+  const {
+    deposit,
+    requestWithdraw,
+    withdraw,
+    balance: stakedBalance,
+    refetchBalance,
+    isDepositPending,
+    isDepositConfirming,
+    isDepositSuccess,
+    isRequestWithdrawPending,
+    isWithdrawPending,
+    isWithdrawConfirming,
+    isWithdrawSuccess,
+    isBalanceLoading,
+  } = useAgentPool();
+
+  useEffect(() => {
+    if (isDepositSuccess || isWithdrawSuccess) {
+      refetchBalance();
+    }
+  }, [isDepositSuccess, isWithdrawSuccess, refetchBalance]);
+
+  const handleStake = () => {
+    const amount = BigInt(Math.floor(parseFloat(stakeAmount) * 1e18));
+    deposit(amount);
+  };
+
+  const handleRequestWithdraw = () => {
+    const amount = BigInt(Math.floor(parseFloat(withdrawAmount) * 1e18));
+    requestWithdraw(amount);
+  };
+
+  const handleWithdraw = () => {
+    withdraw();
+  };
+
+  const formatBalance = (bal: bigint | undefined) => {
+    if (!bal) return "0.00";
+    return (Number(bal) / 1e18).toFixed(4);
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-black">
@@ -143,7 +185,7 @@ export default function StakePage() {
               <div className="space-y-2">
                 <div className="flex justify-between text-[10px] font-mono text-gray-400 uppercase">
                   <span>Amount to Stake</span>
-                  <span>Bal: 12.45 ETH</span>
+                  <span>Staked: {formatBalance(stakedBalance as bigint | undefined)} ETH</span>
                 </div>
                 <div className="flex items-center border border-white/[0.14] bg-white/[0.04]">
                   <input
@@ -153,7 +195,16 @@ export default function StakePage() {
                     className="flex-1 bg-transparent text-xl font-mono font-bold text-white px-3 py-3 outline-none"
                   />
                   <span className="text-xs font-mono text-gray-400 px-2">ETH</span>
-                  <button className="text-[10px] font-mono text-neon-green border-l border-white/[0.14] px-3 py-3 hover:bg-white/[0.06] uppercase">
+                  <button 
+                    className="text-[10px] font-mono text-neon-green border-l border-white/[0.14] px-3 py-3 hover:bg-white/[0.06] uppercase"
+                    onClick={() => {
+                      if (typeof balance === 'object' && balance?.formatted) {
+                        setStakeAmount(balance.formatted);
+                      } else {
+                        setStakeAmount(balance?.toString() || "0");
+                      }
+                    }}
+                  >
                     MAX
                   </button>
                 </div>
@@ -176,8 +227,16 @@ export default function StakePage() {
               </div>
 
               {/* Confirm button */}
-              <button className="w-full bg-neon-green text-black font-mono font-bold text-sm uppercase py-3.5 hover:bg-[#00CC6A] transition-colors neon-glow">
-                Confirm Stake
+              <button 
+                onClick={handleStake}
+                disabled={isDepositPending || isDepositConfirming || !stakeAmount}
+                className="w-full bg-neon-green text-black font-mono font-bold text-sm uppercase py-3.5 hover:bg-[#00CC6A] transition-colors neon-glow disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isDepositPending 
+                  ? "Waiting for Signature..." 
+                  : isDepositConfirming 
+                  ? "Confirming..." 
+                  : "Confirm Stake"}
               </button>
             </div>
 
@@ -188,7 +247,9 @@ export default function StakePage() {
                   <div className="text-[10px] font-mono text-gray-500 uppercase mb-1">Panel_ID: STAKE_02</div>
                   <h2 className="text-lg font-mono font-bold text-white uppercase">Unstake / Claim</h2>
                 </div>
-                <span className="text-[10px] font-mono text-gray-500 uppercase">Staked: 4.20 ETH</span>
+                <span className="text-[10px] font-mono text-gray-500 uppercase">
+                  Staked: {formatBalance(stakedBalance as bigint | undefined)} ETH
+                </span>
               </div>
 
               {/* Amount to withdraw */}
@@ -210,25 +271,35 @@ export default function StakePage() {
                 <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-mono font-bold text-warning uppercase mb-1">
-                    Withdrawal Penalty Alert
+                    24H Cooldown Required
                   </h4>
                   <p className="text-[10px] font-mono text-gray-400 leading-relaxed">
-                    Principal withdrawal detected before epoch completion. A 2.0% burn penalty will be applied to the
-                    requested amount. Yield for the current cycle will be voided.
+                    First call requestWithdraw() to start 24-hour cooldown. After cooldown expires, call withdraw() to claim funds.
                   </p>
                 </div>
               </div>
 
-              {/* Risk factor */}
-              <div className="flex justify-between text-sm font-mono">
-                <span className="text-[11px] text-gray-500 uppercase">Risk Factor</span>
-                <span className="text-warning text-[11px] uppercase">Medium_Risk</span>
+              <div className="flex gap-3">
+                <button 
+                  onClick={handleRequestWithdraw}
+                  disabled={isRequestWithdrawPending || !withdrawAmount}
+                  className="flex-1 border border-warning text-warning font-mono font-bold text-sm uppercase py-3.5 hover:bg-warning/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isRequestWithdrawPending ? "Requesting..." : "Request Withdraw"}
+                </button>
+                
+                <button 
+                  onClick={handleWithdraw}
+                  disabled={isWithdrawPending || isWithdrawConfirming}
+                  className="flex-1 border border-neon-green text-neon-green font-mono font-bold text-sm uppercase py-3.5 hover:bg-neon-green/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isWithdrawPending 
+                    ? "Waiting..." 
+                    : isWithdrawConfirming 
+                    ? "Confirming..." 
+                    : "Withdraw"}
+                </button>
               </div>
-
-              {/* Confirm button */}
-              <button className="w-full border border-neon-green text-neon-green font-mono font-bold text-sm uppercase py-3.5 hover:bg-neon-green/10 transition-colors">
-                Confirm & Withdraw
-              </button>
             </div>
           </div>
 

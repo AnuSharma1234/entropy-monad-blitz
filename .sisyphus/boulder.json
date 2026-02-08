@@ -2,7 +2,10 @@
   "active_plan": "/home/viv/Projects/monad/monad-blitz/.sisyphus/plans/ai-agent-betting.md",
   "started_at": "2026-02-08T09:43:40.394Z",
   "session_ids": [
-    "ses_3c39ea6c9ffe2bzazOB4fdBR5z"
+    "ses_3c39ea6c9ffe2bzazOB4fdBR5z",
+    "ses_3c31918e5ffeuBSzncR84i2kK9",
+    "ses_3c300d852ffekdV1plXaWczE1I",
+    "ses_3c2e91b41ffe1P25SgHlx8zJYv"
   ],
   "plan_name": "ai-agent-betting",
   "agent": "atlas"

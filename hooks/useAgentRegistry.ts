@@ -1,37 +1,44 @@
-import { useContractWrite, useContractRead, useWaitForTransaction } from 'wagmi';
+import { useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
 import AgentRegistryABI from '@/lib/contracts/AgentRegistry.json';
 
 const AGENT_REGISTRY_ADDRESS = process.env.NEXT_PUBLIC_AGENT_REGISTRY_ADDRESS as `0x${string}` || '0x0000000000000000000000000000000000000000';
 
-export function useAgentRegistry() {
-  const { data, write: registerAgent, isLoading, isError, error } = useContractWrite({
-    address: AGENT_REGISTRY_ADDRESS,
-    abi: AgentRegistryABI,
-    functionName: 'registerAgent',
-  });
+const abi = AgentRegistryABI as any;
 
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransaction({
-    hash: data?.hash,
+export function useAgentRegistry() {
+  const { data: txHash, writeContract, isPending, isError, error } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    hash: txHash,
   });
 
   return {
-    registerAgent,
-    isLoading,
+    registerAgent: (name: string, stats: [bigint, bigint, bigint, bigint, bigint, bigint, bigint]) => {
+      writeContract({
+        address: AGENT_REGISTRY_ADDRESS,
+        abi,
+        functionName: 'registerAgent',
+        args: [name, stats],
+      });
+    },
+    isPending,
     isConfirming,
     isSuccess,
     isError,
     error,
-    txHash: data?.hash,
+    txHash,
   };
 }
 
 export function useAgentData(agentId: bigint | undefined) {
-  const { data, isLoading, isError } = useContractRead({
+  const { data, isLoading, isError } = useReadContract({
     address: AGENT_REGISTRY_ADDRESS,
-    abi: AgentRegistryABI,
+    abi,
     functionName: 'getAgent',
     args: agentId !== undefined ? [agentId] : undefined,
-    enabled: agentId !== undefined,
+    query: {
+      enabled: agentId !== undefined,
+    },
   });
 
   return {

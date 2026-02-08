@@ -1,56 +1,66 @@
-import { useContractWrite, useContractRead, useWaitForTransaction, useAccount } from 'wagmi';
+import { useWriteContract, useReadContract, useWaitForTransactionReceipt, useAccount } from 'wagmi';
 import AgentPoolABI from '@/lib/contracts/AgentPool.json';
 
 const AGENT_POOL_ADDRESS = process.env.NEXT_PUBLIC_AGENT_POOL_ADDRESS as `0x${string}` || '0x0000000000000000000000000000000000000000';
 
+const abi = AgentPoolABI as any;
+
 export function useAgentPool() {
   const { address } = useAccount();
 
-  const { data: depositData, write: deposit, isLoading: isDepositLoading } = useContractWrite({
-    address: AGENT_POOL_ADDRESS,
-    abi: AgentPoolABI,
-    functionName: 'deposit',
-  });
+  const { data: depositTxHash, writeContract: writeDeposit, isPending: isDepositPending } = useWriteContract();
+  const { data: requestWithdrawTxHash, writeContract: writeRequestWithdraw, isPending: isRequestWithdrawPending } = useWriteContract();
+  const { data: withdrawTxHash, writeContract: writeWithdraw, isPending: isWithdrawPending } = useWriteContract();
 
-  const { data: requestWithdrawData, write: requestWithdraw, isLoading: isRequestWithdrawLoading } = useContractWrite({
+  const { data: balance, isLoading: isBalanceLoading, refetch: refetchBalance } = useReadContract({
     address: AGENT_POOL_ADDRESS,
-    abi: AgentPoolABI,
-    functionName: 'requestWithdraw',
-  });
-
-  const { data: withdrawData, write: withdraw, isLoading: isWithdrawLoading } = useContractWrite({
-    address: AGENT_POOL_ADDRESS,
-    abi: AgentPoolABI,
-    functionName: 'withdraw',
-  });
-
-  const { data: balance, isLoading: isBalanceLoading, refetch: refetchBalance } = useContractRead({
-    address: AGENT_POOL_ADDRESS,
-    abi: AgentPoolABI,
+    abi,
     functionName: 'getBalance',
     args: address ? [address] : undefined,
-    enabled: !!address,
+    query: {
+      enabled: !!address,
+    },
   });
 
-  const { isLoading: isDepositConfirming, isSuccess: isDepositSuccess } = useWaitForTransaction({
-    hash: depositData?.hash,
+  const { isLoading: isDepositConfirming, isSuccess: isDepositSuccess } = useWaitForTransactionReceipt({
+    hash: depositTxHash,
   });
 
-  const { isLoading: isWithdrawConfirming, isSuccess: isWithdrawSuccess } = useWaitForTransaction({
-    hash: withdrawData?.hash,
+  const { isLoading: isWithdrawConfirming, isSuccess: isWithdrawSuccess } = useWaitForTransactionReceipt({
+    hash: withdrawTxHash,
   });
 
   return {
-    deposit,
-    requestWithdraw,
-    withdraw,
+    deposit: (amount: bigint) => {
+      writeDeposit({
+        address: AGENT_POOL_ADDRESS,
+        abi,
+        functionName: 'deposit',
+        value: amount,
+      });
+    },
+    requestWithdraw: (amount: bigint) => {
+      writeRequestWithdraw({
+        address: AGENT_POOL_ADDRESS,
+        abi,
+        functionName: 'requestWithdraw',
+        args: [amount],
+      });
+    },
+    withdraw: () => {
+      writeWithdraw({
+        address: AGENT_POOL_ADDRESS,
+        abi,
+        functionName: 'withdraw',
+      });
+    },
     balance,
     refetchBalance,
-    isDepositLoading,
+    isDepositPending,
     isDepositConfirming,
     isDepositSuccess,
-    isRequestWithdrawLoading,
-    isWithdrawLoading,
+    isRequestWithdrawPending,
+    isWithdrawPending,
     isWithdrawConfirming,
     isWithdrawSuccess,
     isBalanceLoading,

@@ -1,27 +1,302 @@
-
-╭-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------╮
-| Type        | Signature                                                                               | Selector                                                           |
-+============================================================================================================================================================================+
-| event       | BetPlaced(uint64,address,address,uint256,bool,uint256)                                  | 0xc59f5748253e2903b28fd09d7cb3d17c03cbffeba15bcad9a2d0486fc00b8f31 |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| event       | BetResolved(uint64,address,uint256,bool,uint256)                                        | 0xaf384dcfd803d01123c9f2fa464f7938c95c3283d76e088c9dffbdd68102b356 |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | ENTROPY_ADDRESS() view returns (address)                                                | 0xfbd84123                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | _handleCallback(uint64,bytes32) nonpayable                                              | 0xaa9b4542                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | bets(uint64) view returns (address,address,uint256,uint256,bool,bool,uint256,uint256)   | 0xa2918e3d                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getBet(uint64) view returns (address,address,uint256,uint256,bool,bool,uint256,uint256) | 0xd16191c6                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getPayout(uint64) view returns (uint256)                                                | 0xf287b239                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | getVRFFee() view returns (uint256)                                                      | 0xf0034a7e                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| function    | placeBet(address,uint256,bool,uint256) payable returns (uint64)                         | 0x312892bd                                                         |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| constructor | constructor(address) nonpayable                                                         |                                                                    |
-|-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------|
-| receive     | receive() payable                                                                       |                                                                    |
-╰-------------+-----------------------------------------------------------------------------------------+--------------------------------------------------------------------╯
-
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "entropyAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "receive",
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "ENTROPY_ADDRESS",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "_handleCallback",
+    "inputs": [
+      {
+        "name": "sequenceNumber",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "randomNumber",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "bets",
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "player",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "agent",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "target",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "isOver",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "fulfilled",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "roll",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "payout",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getBet",
+    "inputs": [
+      {
+        "name": "sequenceNumber",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "player",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "agent",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "target",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "isOver",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "fulfilled",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "roll",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "payout",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getPayout",
+    "inputs": [
+      {
+        "name": "sequenceNumber",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getVRFFee",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "placeBet",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "target",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "isOver",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "sequenceNumber",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "event",
+    "name": "BetPlaced",
+    "inputs": [
+      {
+        "name": "sequenceNumber",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "player",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "agent",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "target",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "isOver",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BetResolved",
+    "inputs": [
+      {
+        "name": "sequenceNumber",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "player",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "roll",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "won",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      },
+      {
+        "name": "payout",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  }
+]
