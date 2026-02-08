@@ -70,7 +70,7 @@ export function useAgentPool(agentId: bigint | undefined): AgentPoolReturn {
         args: [],
       });
     },
-    balance,
+    balance: balance as bigint | undefined,
     refetchBalance,
     isDepositPending,
     isDepositConfirming,
