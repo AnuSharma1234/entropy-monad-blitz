@@ -1,0 +1,305 @@
+"use client";
+
+import { useState } from "react";
+import { Header } from "@/components/ui/Header";
+import { Sidebar } from "@/components/ui/Sidebar";
+import { Button } from "@/components/ui/Button";
+import { useWallet } from "@/hooks/useWallet";
+import { cn } from "@/lib/utils";
+import { AlertTriangle, ArrowUpRight, ExternalLink } from "lucide-react";
+import Link from "next/link";
+
+const MOCK_POSITIONS = [
+  {
+    asset: "ETH/CYBER-LP",
+    balance: "4.2001 ETH",
+    yield: "+0.124 ETH",
+    lock: "~14h 22m",
+    locked: true,
+  },
+  {
+    asset: "CYBER-NODE",
+    balance: "1,200.00 CYBR",
+    yield: "+45.50 CYBR",
+    lock: "UNLOCKED",
+    locked: false,
+  },
+];
+
+export default function StakePage() {
+  const [stakeAmount, setStakeAmount] = useState("1.50");
+  const [withdrawAmount, setWithdrawAmount] = useState("4.20");
+  const [stakeMode, setStakeMode] = useState<"stake" | "withdraw">("stake");
+  const { isConnected, balance } = useWallet();
+
+  return (
+    <div className="flex min-h-screen flex-col bg-black">
+      <Header />
+      <div className="flex flex-1">
+        {/* Left Sidebar */}
+        <aside className="hidden lg:flex w-48 shrink-0 border-r border-white/5 bg-black flex-col p-4 space-y-1">
+          <div className="mb-4">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-5 h-5 bg-neon-green flex items-center justify-center">
+                <span className="text-black text-[10px] font-bold">⚡</span>
+              </div>
+              <span className="text-xs font-mono font-bold text-white uppercase">CyberStake</span>
+            </div>
+          </div>
+
+          {[
+            { label: "Overview", active: false },
+            { label: "Stake", active: true },
+            { label: "Withdraw", active: false },
+            { label: "History", active: false },
+          ].map((item) => (
+            <button
+              key={item.label}
+              onClick={() => {
+                if (item.label === "Stake") setStakeMode("stake");
+                if (item.label === "Withdraw") setStakeMode("withdraw");
+              }}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2 text-xs font-mono transition-all w-full text-left border-l-2",
+                item.active || (item.label === "Stake" && stakeMode === "stake") || (item.label === "Withdraw" && stakeMode === "withdraw")
+                  ? "bg-neon-green/10 text-neon-green border-neon-green"
+                  : "text-gray-500 hover:text-white hover:bg-white/5 border-transparent"
+              )}
+            >
+              <span className="uppercase">{item.label}</span>
+            </button>
+          ))}
+
+          <div className="flex-1" />
+
+          {/* Protocol Status */}
+          <div className="border border-white/5 p-3">
+            <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Protocol Status</div>
+            <div className="flex items-center gap-1.5">
+              <span className="status-dot online" />
+              <span className="text-[10px] font-mono text-neon-green uppercase">Mainnet V2.1.0 Online</span>
+            </div>
+          </div>
+        </aside>
+
+        <main className="flex-1 p-6 space-y-6 page-enter overflow-auto">
+          {/* Title */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-black font-mono text-white tracking-tight italic mb-1">
+                Staking & Liquidity
+              </h1>
+              <p className="text-[11px] font-mono text-gray-500">
+                Yield-funded on-chain gaming infrastructure. Secure your assets in the dark-web vault.
+              </p>
+            </div>
+            <div className="text-right">
+              <div className="text-[10px] font-mono text-gray-600 uppercase mb-0.5">Total Value Locked</div>
+              <div className="text-xl font-bold font-mono text-white">$42,901,054.21</div>
+            </div>
+          </div>
+
+          {/* Stake & Unstake panels */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* STAKE panel */}
+            <div className="border border-white/5 bg-white/[0.02] p-6 space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Panel_ID: STAKE_01</div>
+                  <h2 className="text-lg font-mono font-bold text-white uppercase">Stake Assets</h2>
+                </div>
+                <span className="border border-neon-green/30 bg-neon-green/10 text-neon-green text-[10px] font-mono px-2 py-0.5 uppercase">
+                  APR: 24.5%
+                </span>
+              </div>
+
+              {/* Stake/Withdraw toggle */}
+              <div className="grid grid-cols-2 gap-0 border border-white/10">
+                <button
+                  onClick={() => setStakeMode("stake")}
+                  className={cn(
+                    "text-xs font-mono py-2.5 uppercase transition-all",
+                    stakeMode === "stake"
+                      ? "bg-white text-black font-bold"
+                      : "text-gray-500 hover:bg-white/5"
+                  )}
+                >
+                  Stake
+                </button>
+                <button
+                  onClick={() => setStakeMode("withdraw")}
+                  className={cn(
+                    "text-xs font-mono py-2.5 uppercase transition-all",
+                    stakeMode === "withdraw"
+                      ? "bg-white text-black font-bold"
+                      : "text-gray-500 hover:bg-white/5"
+                  )}
+                >
+                  Withdraw
+                </button>
+              </div>
+
+              {/* Amount to Stake */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-[10px] font-mono text-gray-500 uppercase">
+                  <span>Amount to Stake</span>
+                  <span>Bal: 12.45 ETH</span>
+                </div>
+                <div className="flex items-center border border-white/10 bg-white/[0.02]">
+                  <input
+                    type="number"
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(e.target.value)}
+                    className="flex-1 bg-transparent text-xl font-mono font-bold text-white px-3 py-3 outline-none"
+                  />
+                  <span className="text-xs font-mono text-gray-500 px-2">ETH</span>
+                  <button className="text-[10px] font-mono text-neon-green border-l border-white/10 px-3 py-3 hover:bg-white/5 uppercase">
+                    MAX
+                  </button>
+                </div>
+              </div>
+
+              {/* Estimates */}
+              <div className="space-y-2 text-sm font-mono">
+                <div className="flex justify-between text-gray-500">
+                  <span className="text-[11px] uppercase">Est. Daily Yield</span>
+                  <span className="text-neon-green text-[11px]">+0.001 ETH</span>
+                </div>
+                <div className="flex justify-between text-gray-500">
+                  <span className="text-[11px] uppercase">Gas Estimate</span>
+                  <span className="text-[11px]">~0.0042 ETH</span>
+                </div>
+                <div className="flex justify-between text-gray-500">
+                  <span className="text-[11px] uppercase">Lock-up Duration</span>
+                  <span className="text-[11px]">72H MINIMUM</span>
+                </div>
+              </div>
+
+              {/* Confirm button */}
+              <button className="w-full bg-neon-green text-black font-mono font-bold text-sm uppercase py-3.5 hover:bg-[#00CC6A] transition-colors neon-glow">
+                Confirm Stake
+              </button>
+            </div>
+
+            {/* UNSTAKE / CLAIM panel */}
+            <div className="border border-white/5 bg-white/[0.02] p-6 space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] font-mono text-gray-600 uppercase mb-1">Panel_ID: STAKE_02</div>
+                  <h2 className="text-lg font-mono font-bold text-white uppercase">Unstake / Claim</h2>
+                </div>
+                <span className="text-[10px] font-mono text-gray-600 uppercase">Staked: 4.20 ETH</span>
+              </div>
+
+              {/* Amount to withdraw */}
+              <div className="space-y-2">
+                <div className="text-[10px] font-mono text-gray-500 uppercase">Amount to Withdraw</div>
+                <div className="flex items-center border border-white/10 bg-white/[0.02]">
+                  <input
+                    type="number"
+                    value={withdrawAmount}
+                    onChange={(e) => setWithdrawAmount(e.target.value)}
+                    className="flex-1 bg-transparent text-xl font-mono font-bold text-white px-3 py-3 outline-none"
+                  />
+                  <span className="text-xs font-mono text-gray-500 px-3">ETH</span>
+                </div>
+              </div>
+
+              {/* Withdrawal penalty alert */}
+              <div className="border border-warning/30 bg-warning/5 p-4 flex gap-3 items-start">
+                <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-mono font-bold text-warning uppercase mb-1">
+                    Withdrawal Penalty Alert
+                  </h4>
+                  <p className="text-[10px] font-mono text-gray-400 leading-relaxed">
+                    Principal withdrawal detected before epoch completion. A 2.0% burn penalty will be applied to the
+                    requested amount. Yield for the current cycle will be voided.
+                  </p>
+                </div>
+              </div>
+
+              {/* Risk factor */}
+              <div className="flex justify-between text-sm font-mono">
+                <span className="text-[11px] text-gray-500 uppercase">Risk Factor</span>
+                <span className="text-warning text-[11px] uppercase">Medium_Risk</span>
+              </div>
+
+              {/* Confirm button */}
+              <button className="w-full border border-neon-green text-neon-green font-mono font-bold text-sm uppercase py-3.5 hover:bg-neon-green/10 transition-colors">
+                Confirm & Withdraw
+              </button>
+            </div>
+          </div>
+
+          {/* Active Node Positions */}
+          <div className="border border-white/5 bg-white/[0.02]">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+              <h2 className="text-sm font-mono font-bold text-white uppercase">Active Node Positions</h2>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-gray-600 uppercase">Sync Status: Optimal</span>
+                <span className="status-dot online" />
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="text-[10px] font-mono text-gray-600 uppercase border-b border-white/5">
+                    <th className="px-5 py-3">Asset Identifier</th>
+                    <th className="px-5 py-3">Staked Balance</th>
+                    <th className="px-5 py-3">Yield Accrued</th>
+                    <th className="px-5 py-3">Lock Status</th>
+                    <th className="px-5 py-3">Control</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MOCK_POSITIONS.map((pos, i) => (
+                    <tr key={i} className="border-b border-white/5 last:border-b-0 hover:bg-white/[0.02] transition-colors">
+                      <td className="px-5 py-4 flex items-center gap-2">
+                        <div className="w-6 h-6 border border-white/10 bg-white/5 flex items-center justify-center">
+                          <span className="text-[10px] font-mono text-gray-500">⊙</span>
+                        </div>
+                        <span className="text-xs font-mono font-bold text-white">{pos.asset}</span>
+                      </td>
+                      <td className="px-5 py-4 text-xs font-mono text-white">{pos.balance}</td>
+                      <td className="px-5 py-4 text-xs font-mono text-neon-green">{pos.yield}</td>
+                      <td className="px-5 py-4">
+                        <span
+                          className={cn(
+                            "text-[10px] font-mono px-2 py-0.5 border uppercase",
+                            pos.locked
+                              ? "border-warning/30 text-warning"
+                              : "border-neon-green/30 text-neon-green"
+                          )}
+                        >
+                          {pos.lock}
+                        </span>
+                      </td>
+                      <td className="px-5 py-4">
+                        <button className="text-[10px] font-mono text-neon-green uppercase hover:underline">
+                          Manage_Link
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      {/* Bottom footer bar */}
+      <footer className="border-t border-white/5 px-4 py-2 flex justify-between items-center">
+        <span className="text-[10px] font-mono text-gray-700">
+          © 2024 CYBERSTAKE LABS // CORE_OS
+        </span>
+        <div className="flex gap-6 text-[10px] font-mono">
+          <span className="text-neon-green">GAS: 12 GWEI</span>
+          <span className="text-gray-700">BLOCK: 19482031</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
