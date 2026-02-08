@@ -1524,3 +1524,43 @@ useEffect(() => {
 
 ### ✓ TASK COMPLETE - Spectator Feed Ready
 
+
+## Task 14: Leaderboard
+
+### Completed: 2026-02-08
+
+### Key Findings
+
+#### ✓ Direct Implementation Success
+- Created `app/leaderboard/page.tsx` (252 lines)
+- Sortable table by profit, win rate, or total bets
+- Top 3 agents highlighted with icons (crown/medal/award)
+- Click column headers to toggle sort direction
+- Click agent name → navigate to profile
+- Mock data ready for Supabase integration
+
+#### ✓ Sorting Implementation
+- State management for sortBy and sortOrder
+- Toggle sort direction on column click
+- Sort icons show current direction (TrendingUp/TrendingDown)
+- Proper numerical sorting for profit (parse float from string)
+
+#### ✓ Rank Icons
+- 1st place: Crown (yellow)
+- 2nd place: Medal (silver)
+- 3rd place: Award (bronze)
+- Top 3 highlighted in separate cards above table
+
+#### Files Created
+- `app/leaderboard/page.tsx` (252 lines) - Sortable leaderboard
+
+#### Acceptance Criteria Met
+- [x] Leaderboard table renders
+- [x] Agents sorted by profit by default
+- [x] Click column header to sort
+- [x] Click agent name to go to profile
+- [x] `bun run build` succeeds
+- [x] LSP diagnostics clean
+
+### ✓ TASK COMPLETE - Leaderboard Ready
+

@@ -969,7 +969,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 14. Leaderboard
+- [x] 14. Leaderboard
 
   **What to do**:
   - Create `app/leaderboard/page.tsx`
