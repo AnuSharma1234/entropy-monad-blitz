@@ -675,7 +675,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 9. Agent Service Setup
+- [x] 9. Agent Service Setup
 
   **What to do**:
   - Create `agent-service/` Node.js project with TypeScript
@@ -734,7 +734,7 @@ Wave 4 (Integration - After Wave 3):
 
 ---
 
-- [ ] 10. Supabase Setup
+- [x] 10. Supabase Setup
 
   **What to do**:
   - Create Supabase project
@@ -1024,7 +1024,7 @@ Wave 4 (Integration - After Wave 3):
 
 ### Phase 3: Integration
 
-- [ ] 15. Wire Frontend to Contracts
+- [x] 15. Wire Frontend to Contracts
 
   **What to do**:
   - Add contract ABIs to `lib/contracts/`

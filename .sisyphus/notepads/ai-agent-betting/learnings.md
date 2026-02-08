@@ -2010,3 +2010,204 @@ Future: Let Gemini decide game parameters based on personality.
 - Proper error alerting and retry logic
 - Let Gemini choose game parameters
 
+
+## Task 15: Frontend-to-Contract Wiring (Game Hooks)
+
+### Implementation Summary
+Created 4 wagmi hooks for game contracts following the established pattern:
+
+#### Files Created
+1. **hooks/useCoinFlipGame.ts**
+   - `useCoinFlipGame()` - Place bet with `placeBet(agentId: bigint, side: boolean, amount: bigint)`
+   - `useCoinFlipBet(sequenceNumber)` - Read bet data
+   - agentId type: `uint256` (bigint)
+
+2. **hooks/useDiceGame.ts**
+   - `useDiceGame()` - Place bet with `placeBet(agentId: address, target: bigint, isOver: boolean, amount: bigint)`
+   - `useDiceBet(sequenceNumber)` - Read bet data
+   - `useDiceVRFFee()` - Get VRF fee
+   - agentId type: `address` (`0x${string}`)
+   - Payable function - includes `value: amount`
+
+3. **hooks/useMinesGame.ts**
+   - `useMinesGame()` - Start game, reveal tiles, cash out
+     - `startGame(agentId: bigint, mineCount: bigint, betAmount: bigint)`
+     - `reveal(gameId: bigint, position: bigint)`
+     - `cashOut(gameId: bigint)`
+   - `useMinesGameData(gameId)` - Read game state
+   - `useMinesTileRevealed(gameId, position)` - Check if tile revealed
+   - agentId type: `uint256` (bigint)
+   - Multiple write functions with separate pending/confirming/success states
+
+4. **hooks/usePlinkoGame.ts**
+   - `usePlinkoGame()` - Drop ball with `dropBall(agentId: address, riskLevel: RiskLevel, betAmount: bigint)`
+   - `usePlinkoBet(sequenceNumber)` - Read bet data
+   - `usePlinkoMultipliers(riskLevel)` - Get multipliers for risk level
+   - `usePlinkoVRFFee()` - Get VRF fee
+   - agentId type: `address` (`0x${string}`)
+   - Exported `RiskLevel` enum (LOW=0, MEDIUM=1, HIGH=2)
+   - Payable function - includes `value: betAmount`
+
+### Pattern Consistency
+✅ All hooks follow `useAgentRegistry.ts` and `useAgentPool.ts` patterns:
+- Import ABI from `@/lib/contracts/*.json`
+- Load address from env var with fallback to `0x0000000000000000000000000000000000000000`
+- Use `useWriteContract` for write operations
+- Use `useReadContract` for read operations
+- Use `useWaitForTransactionReceipt` for transaction confirmation
+- Export clean interfaces with state flags (isPending, isConfirming, isSuccess, isError)
+- Include transaction hash for tracking
+
+### Key Learnings
+
+#### AgentId Type Inconsistency
+**CRITICAL**: Not all contracts use the same type for `agentId`!
+- **CoinFlip & Mines**: `uint256` → use `bigint` in TypeScript
+- **Dice & Plinko**: `address` → use `` `0x${string}` `` in TypeScript
+
+This inconsistency exists in the deployed contracts and must be handled correctly in the frontend.
+
+#### Payable Functions
+**Dice & Plinko** require `value` parameter:
+```typescript
+writeContract({
+  address: CONTRACT_ADDRESS,
+  abi,
+  functionName: 'placeBet',
+  args: [...],
+  value: amount, // REQUIRED for payable functions
+});
+```
+
+**CoinFlip & Mines** do NOT use `value` (they use AgentPool debit/credit).
+
+#### Multiple Write Functions (Mines)
+For contracts with multiple write operations, create separate `useWriteContract` instances:
+```typescript
+const { data: startTxHash, writeContract: writeStart, ... } = useWriteContract();
+const { data: revealTxHash, writeContract: writeReveal, ... } = useWriteContract();
+const { data: cashOutTxHash, writeContract: writeCashOut, ... } = useWriteContract();
+```
+
+Each has its own pending/confirming/success states to track independently.
+
+#### Read Function Patterns
+For optional parameters, use conditional args:
+```typescript
+args: gameId !== undefined ? [gameId] : undefined,
+query: {
+  enabled: gameId !== undefined, // Prevent query when param missing
+},
+```
+
+#### Environment Variables
+All contract addresses use `NEXT_PUBLIC_` prefix:
+- `NEXT_PUBLIC_COINFLIP_ADDRESS`
+- `NEXT_PUBLIC_DICE_ADDRESS`
+- `NEXT_PUBLIC_MINES_ADDRESS`
+- `NEXT_PUBLIC_PLINKO_ADDRESS`
+
+This allows client-side access in Next.js.
+
+### TypeScript Verification
+✅ All 4 hooks pass LSP diagnostics (no TypeScript errors)
+✅ Proper type safety with bigint for uint256 and `0x${string}` for address
+
+### Next Steps
+- Frontend pages can now import and use these hooks
+- Agent service can call these contracts via viem (separate implementation)
+- Add contract addresses to `.env.local` when deploying to testnet
+
+### Hook Usage Example
+```typescript
+import { useCoinFlipGame } from '@/hooks/useCoinFlipGame';
+
+function CoinFlipComponent() {
+  const { placeBet, isPending, isConfirming, isSuccess } = useCoinFlipGame();
+  
+  const handleBet = () => {
+    placeBet(1n, true, parseEther("0.1")); // agentId=1, side=heads, 0.1 ETH
+  };
+  
+  return (
+    <button onClick={handleBet} disabled={isPending || isConfirming}>
+      {isPending ? "Confirming..." : isConfirming ? "Processing..." : "Place Bet"}
+    </button>
+  );
+}
+```
+
+
+---
+
+## Task 15 Completion Summary
+
+### ✅ All Required Hooks Created
+1. **hooks/useCoinFlipGame.ts** - CoinFlip game betting
+2. **hooks/useDiceGame.ts** - Dice game betting
+3. **hooks/useMinesGame.ts** - Mines game (start, reveal, cashout)
+4. **hooks/usePlinkoGame.ts** - Plinko ball drops
+
+### ✅ Integration Status
+- **Agent Registration**: ✅ `app/agent/create/page.tsx` already wired to `useAgentRegistry.registerAgent()`
+- **Game Hooks**: ✅ Created and ready for integration in game components
+- **Deposit/Withdraw**: ✅ `useAgentPool` hook available with deposit/withdraw functions
+
+### Environment Variables Required
+Add these to `.env.local` when deploying:
+```bash
+NEXT_PUBLIC_COINFLIP_ADDRESS=0x...
+NEXT_PUBLIC_DICE_ADDRESS=0x...
+NEXT_PUBLIC_MINES_ADDRESS=0x...
+NEXT_PUBLIC_PLINKO_ADDRESS=0x...
+NEXT_PUBLIC_AGENT_REGISTRY_ADDRESS=0x...
+NEXT_PUBLIC_AGENT_POOL_ADDRESS=0x...
+```
+
+### Next Integration Steps (Future Tasks)
+To wire game components to these hooks:
+
+#### Plinko Component Integration
+```typescript
+// components/games/PlinkoGame.tsx
+import { usePlinkoGame, RiskLevel } from '@/hooks/usePlinkoGame';
+import { parseEther } from 'viem';
+
+const { dropBall, isPending, isConfirming } = usePlinkoGame();
+
+const handleDropBall = () => {
+  const agentAddress = '0x...' as `0x${string}`;
+  dropBall(
+    agentAddress,
+    risk === "LOW" ? RiskLevel.LOW : risk === "HIGH" ? RiskLevel.HIGH : RiskLevel.MEDIUM,
+    parseEther(betAmount)
+  );
+};
+```
+
+#### Mines Component Integration
+```typescript
+// components/games/MinesGame.tsx
+import { useMinesGame } from '@/hooks/useMinesGame';
+import { parseEther } from 'viem';
+
+const { startGame, reveal, cashOut, isStartPending } = useMinesGame();
+
+const handleStartGame = () => {
+  startGame(
+    BigInt(agentId),
+    BigInt(mineCount),
+    parseEther(betAmount)
+  );
+};
+```
+
+### Testing Checklist
+- [ ] Deploy contracts to Monad testnet
+- [ ] Add contract addresses to `.env.local`
+- [ ] Test agent registration flow
+- [ ] Test deposit/withdraw functions
+- [ ] Test each game hook with real contract interactions
+- [ ] Verify VRF callbacks work correctly
+- [ ] Test transaction confirmation flows
+

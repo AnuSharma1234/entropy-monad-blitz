@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Sidebar } from "@/components/ui/Sidebar";
 import { Button } from "@/components/ui/Button";
@@ -28,6 +29,9 @@ const MOCK_POSITIONS = [
 ];
 
 export default function StakePage() {
+  const searchParams = useSearchParams();
+  const agentIdParam = searchParams.get("agentId");
+  const agentId = agentIdParam ? BigInt(agentIdParam) : 1n;
   const [stakeAmount, setStakeAmount] = useState("1.50");
   const [withdrawAmount, setWithdrawAmount] = useState("4.20");
   const [stakeMode, setStakeMode] = useState<"stake" | "withdraw">("stake");
@@ -47,7 +51,7 @@ export default function StakePage() {
     isWithdrawConfirming,
     isWithdrawSuccess,
     isBalanceLoading,
-  } = useAgentPool();
+  } = useAgentPool(agentId);
 
   useEffect(() => {
     if (isDepositSuccess || isWithdrawSuccess) {

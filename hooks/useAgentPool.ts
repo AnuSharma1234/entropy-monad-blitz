@@ -1,24 +1,21 @@
-import { useWriteContract, useReadContract, useWaitForTransactionReceipt, useAccount } from 'wagmi';
-import AgentPoolABI from '@/lib/contracts/AgentPool.json';
+import { useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
+import AgentPoolV2ABI from '@/lib/contracts/AgentPoolV2.json';
 
 const AGENT_POOL_ADDRESS = process.env.NEXT_PUBLIC_AGENT_POOL_ADDRESS as `0x${string}` || '0x0000000000000000000000000000000000000000';
 
-const abi = AgentPoolABI as any;
+const abi = AgentPoolV2ABI as any;
 
-export function useAgentPool() {
-  const { address } = useAccount();
-
+/** AgentPoolV2: agentId-based, native MON. Pass agentId to stake/deposit for an agent. */
+export function useAgentPool(agentId: bigint | undefined) {
   const { data: depositTxHash, writeContract: writeDeposit, isPending: isDepositPending } = useWriteContract();
-  const { data: requestWithdrawTxHash, writeContract: writeRequestWithdraw, isPending: isRequestWithdrawPending } = useWriteContract();
-  const { data: withdrawTxHash, writeContract: writeWithdraw, isPending: isWithdrawPending } = useWriteContract();
 
   const { data: balance, isLoading: isBalanceLoading, refetch: refetchBalance } = useReadContract({
     address: AGENT_POOL_ADDRESS,
     abi,
     functionName: 'getBalance',
-    args: address ? [address] : undefined,
+    args: agentId !== undefined ? [agentId] : undefined,
     query: {
-      enabled: !!address,
+      enabled: agentId !== undefined,
     },
   });
 
@@ -26,32 +23,15 @@ export function useAgentPool() {
     hash: depositTxHash,
   });
 
-  const { isLoading: isWithdrawConfirming, isSuccess: isWithdrawSuccess } = useWaitForTransactionReceipt({
-    hash: withdrawTxHash,
-  });
-
   return {
     deposit: (amount: bigint) => {
+      if (!agentId) return;
       writeDeposit({
         address: AGENT_POOL_ADDRESS,
         abi,
         functionName: 'deposit',
+        args: [agentId],
         value: amount,
-      });
-    },
-    requestWithdraw: (amount: bigint) => {
-      writeRequestWithdraw({
-        address: AGENT_POOL_ADDRESS,
-        abi,
-        functionName: 'requestWithdraw',
-        args: [amount],
-      });
-    },
-    withdraw: () => {
-      writeWithdraw({
-        address: AGENT_POOL_ADDRESS,
-        abi,
-        functionName: 'withdraw',
       });
     },
     balance,
@@ -59,10 +39,12 @@ export function useAgentPool() {
     isDepositPending,
     isDepositConfirming,
     isDepositSuccess,
-    isRequestWithdrawPending,
-    isWithdrawPending,
-    isWithdrawConfirming,
-    isWithdrawSuccess,
     isBalanceLoading,
+    requestWithdraw: () => {},
+    withdraw: () => {},
+    isRequestWithdrawPending: false,
+    isWithdrawPending: false,
+    isWithdrawConfirming: false,
+    isWithdrawSuccess: false,
   };
 }

@@ -1,9 +1,9 @@
 import { http, createConfig } from 'wagmi'
-import { mainnet, sepolia, hardhat } from 'wagmi/chains'
+import { hardhat } from 'wagmi/chains'
 import { defineChain } from 'viem'
 
 export const monadTestnet = defineChain({
-  id: 10143, // Replace with actual Monad Testnet ID when available/confirmed
+  id: 10143,
   name: 'Monad Testnet',
   network: 'monad-testnet',
   nativeCurrency: {
